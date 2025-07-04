@@ -10,15 +10,14 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
-  url      = "sqlserver://admincakesite:M6WcKCzTBZu9a7Tk@cakesite-sql-server.database.windows.net:1433;database=CakeWebsiteDb;encrypt=true;trustServerCertificate=false"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
-
 
 model Product {
   id Int @id @default(autoincrement())
   title String
   description String
   price Float
-  image String
+  imageUrl String
 }
