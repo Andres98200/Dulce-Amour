@@ -1,18 +1,24 @@
 import express from "express";
-import productRoutes from './routes/products.Routes';
+import productRoutes from './routes/Product.route';
 import { PrismaClient } from "@prisma/client";
 import dotenv from 'dotenv';
+import {Request, Response } from "express";
+import { Router } from "express";
 
 dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
+const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
 //Routes
+app.get('/', (req:Request, res:Response) => {
+  res.send("Backend is running and listening !")
+})
 app.use('/api/products', productRoutes);
 
 //check DB connection
@@ -27,3 +33,8 @@ async function main() {
         }
       }
 main();
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
