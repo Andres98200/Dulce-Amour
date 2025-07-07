@@ -22,7 +22,7 @@ export const createProduct = async (req: Request, res: Response) => {
     });
     console.log("Product created", product)
 
-    //Create entry for each image en cloudinary 
+    //Create entry for each image on cloudinary 
     const imagePromises = files.map(file =>
       prisma.image.create({
         data: {
@@ -50,5 +50,30 @@ export const createProduct = async (req: Request, res: Response) => {
       message: 'Error creating product',
       error: error.message,
     });
+  }
+};
+
+//select a product by ID
+export const selectProduct = async (req: Request, res: Response) => {
+  try{
+    const{ id } = req.params;
+
+    const product = await prisma.product.findUnique({
+      where: {id: Number(id)},
+      include: {images: true},
+    });
+
+    if(!product){
+      res.status(400).json({message: "Product not found"})
+      return;
+    }
+    res.status(200).json({
+    message: "Product found",
+    product,
+    });
+
+  }catch(error: any){
+    console.error("Error trying to get the product", error);
+    res.status(500).json({message: "Error on server"});
   }
 };
