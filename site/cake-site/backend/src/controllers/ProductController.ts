@@ -54,7 +54,7 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 
 //select a product by ID
-export const selectProduct = async (req: Request, res: Response) => {
+export const getProduct = async (req: Request, res: Response) => {
   try{
     const{ id } = req.params;
 
@@ -64,7 +64,7 @@ export const selectProduct = async (req: Request, res: Response) => {
     });
 
     if(!product){
-      res.status(400).json({message: "Product not found"})
+      res.status(404).json({message: "Product not found"})
       return;
     }
     res.status(200).json({
@@ -75,5 +75,82 @@ export const selectProduct = async (req: Request, res: Response) => {
   }catch(error: any){
     console.error("Error trying to get the product", error);
     res.status(500).json({message: "Error on server"});
+  }
+};
+
+//select all products
+export const getAllProducts = async (req:Request, res:Response) => {
+  try{
+    const products = await prisma.product.findMany({
+      include: {images: true},
+    });
+    res.status(200).json({message: "List of all products",
+      products,
+    });
+
+  }catch(error: any){
+    console.error("Error fetching all the products", error);
+    res.status(500).json({message: "Error on server"});
+  }
+};
+
+export const updateProduct = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, description, price } = req.body;
+  const files = req.files as Express.Multer.File[];
+
+  try {
+    const existingProduct = await prisma.product.findUnique({
+      where: { id: Number(id) },
+      include: { images: true },
+    });
+
+    if (!existingProduct) {
+      res.status(404).json({ message: "Product not found" });
+      return;
+    }
+
+    // 1. Update product details
+    const updatedProduct = await prisma.product.update({
+      where: { id: Number(id) },
+      data: {
+        title,
+        description,
+        price: parseFloat(price),
+      },
+    });
+
+    // 2. Update images if new files are provided
+    if (files && files.length > 0) {
+      await prisma.image.deleteMany({
+        where: { productId: updatedProduct.id },
+      });
+
+      // update new images
+      const imagePromises = files.map(file =>
+        prisma.image.create({
+          data: {
+            url: (file as any).path, // Cloudinary URL
+            productId: updatedProduct.id,
+          },
+        })
+      );
+      await Promise.all(imagePromises);
+    }
+
+    // 3. return product with new images
+    const productWithImages = await prisma.product.findUnique({
+      where: { id: updatedProduct.id },
+      include: { images: true },
+    });
+
+    res.status(200).json({
+      message: "Product updated successfully",
+      product: productWithImages,
+    });
+
+  } catch (error: any) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
