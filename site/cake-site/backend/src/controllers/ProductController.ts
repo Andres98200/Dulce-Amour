@@ -71,6 +71,7 @@ export const getProduct = async (req: Request, res: Response) => {
     message: "Product found",
     product,
     });
+    console.log('Product found')
 
   }catch(error: any){
     console.error("Error trying to get the product", error);
@@ -93,6 +94,8 @@ export const getAllProducts = async (req:Request, res:Response) => {
     res.status(500).json({message: "Error on server"});
   }
 };
+
+//update product
 
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -153,4 +156,35 @@ export const updateProduct = async (req: Request, res: Response) => {
     console.error("Error updating product:", error);
     res.status(500).json({ message: "Server error" });
   }
+};
+
+//delete product
+
+export const deleteProduct = async (req:Request, res:Response) => {
+    const { id } = req.params;
+
+    try {
+      const existingProduct = await prisma.product.findUnique({
+        where: { id:Number(id)}
+      });
+      if(!existingProduct){
+        res.status(404).json({message: 'Product not found'})
+        return;
+      }
+      //delete images of the product
+      await prisma.image.deleteMany({
+        where: { productId:Number(id) },
+      });
+
+      //delete the product
+      await prisma.product.delete({
+        where: {id:Number(id)}
+      });
+      res.status(200).json({ message: 'Product and images deleted successfully'});
+
+    
+    }catch(error: any){
+      console.error('Error deleting product', error);
+      res.status(500).json( {message: 'Server Error'});
+    }
 };
