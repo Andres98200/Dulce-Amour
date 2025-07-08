@@ -1,5 +1,5 @@
 import express from "express";
-import productRoutes from './routes/Product.route';
+import productRoutes from './routes/product.route';
 import { PrismaClient } from "@prisma/client";
 import dotenv from 'dotenv';
 import {Request, Response } from "express";
