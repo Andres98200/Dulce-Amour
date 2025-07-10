@@ -30,6 +30,7 @@ export const login = async(req:Request, res:Response) => {
 
         const match = await bcrypt.compare(password, adminPassword as string);
         if(!match){
+            console.log(password, adminPassword);
             res.status(401).json({ message: "wrong password, please use your admin password"})
             return;
         }
@@ -39,7 +40,7 @@ export const login = async(req:Request, res:Response) => {
         });
         console.log("token generated", token)
 
-        res.status(200).json({ message: "Successfully Connected, welcome %s", adminEmail});
+        res.status(200).json({ message: `Successfully Connected, welcome ${adminEmail}`, token});
 
     }catch(error:any){
         console.log('error login', error);

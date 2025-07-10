@@ -1,5 +1,6 @@
 import express from "express";
 import productRoutes from './routes/product.route';
+import authRoutes from './routes/auth.route';
 import { PrismaClient } from "@prisma/client";
 import dotenv from 'dotenv';
 import {Request, Response } from "express";
@@ -20,6 +21,7 @@ app.get('/', (req:Request, res:Response) => {
   res.send("Backend is running and listening !")
 })
 app.use('/api/products', productRoutes);
+app.use('/auth', authRoutes);
 
 //check DB connection
 async function main() {
