@@ -1,12 +1,16 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/layouts/navbar'; // attention au nom du fichier, majuscule
 
 function App() {
   return (
-    <div>
-      <h2 className="text-3xl font-bold underline text-blue-400 pb-8">Testing the branch!</h2>
-      <h1 className="text-3xl font-bold underline text-blue-400">Hello Tailwind!</h1>
-    </div>
-  )
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/login" element={<div>Login Page</div>} />
+        {/* Ajoute tes autres routes ici */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
