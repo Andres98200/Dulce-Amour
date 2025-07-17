@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/layouts/navbar'; // attention au nom du fichier, majuscule
+import Navbar from './components/layouts/Navbar'; 
 
 function App() {
   return (
