@@ -8,6 +8,8 @@ export default {
     extend: {
       colors: {
         roseCustom: '#F48CBA',
+        blueCustom: '#8ACDD7',
+        cardColor: '#FFF7EE'
       }
     },
   },
