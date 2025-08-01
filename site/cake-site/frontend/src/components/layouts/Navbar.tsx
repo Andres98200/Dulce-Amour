@@ -9,13 +9,8 @@ import sp from "../../assets/flags/sp.png";
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
-  const [ openLangMenu, setOpenLangMenu] = useState();
+  const [ openLangMenu, setOpenLangMenu] = useState(false);
 
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
 
   const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -61,7 +56,7 @@ const Navbar: React.FC = () => {
           <Link to="/AboutUs">About Us</Link>
         </li>
         <li>
-          <button onClick={handleLogout}>Log In</button>
+          <button className="hover:bg-black-400" onClick={() => navigate('/login')}>Log In</button>
         </li>
       </ul>
     </nav>
