@@ -1,38 +1,26 @@
 import React from "react";
-import instagram from "../../assets/icons/instagram.png";
+import testCake from "../../assets/testCake.png";
 
-interface ProductCardProps {
-  title: string;
-  price: number;
-  description: string;
+interface PresentationCardProps {
   image?: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  description,
+const PresentationCard: React.FC<PresentationCardProps> = ({
   image,
 }) => (
   <div
-    className="bg-[#FFF8F0] rounded-xl shadow-md p-4 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full"
+    className="bg-cardColor rounded-xl shadow-md flex flex-col flex-shrink-0 overflow-hidden w-full aspect-[4/3]"
   >
     {image && (
-      <div className="rounded-lg overflow-hidden mb-3 flex-shrink-0">
+      <div className="rounded-lg overflow-hidden flex-shrink-0 h-full">
         <img
-          src={instagram}
+          src={testCake}
           loading="lazy"
-          className="w-full h-56 object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
     )}
-
-    <div className="flex justify-between items-center mt-1 mb-1">
-
-    </div>
-
-    <p className="text-xs leading-tight flex-1">
-      {description}
-    </p>
   </div>
 );
 
-export default ProductCard;
+export default PresentationCard;

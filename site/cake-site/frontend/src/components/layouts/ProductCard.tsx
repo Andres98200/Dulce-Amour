@@ -1,7 +1,8 @@
 import React from "react";
-import instagram from "../../assets/icons/instagram.png";
-
+import { useNavigate } from "react-router-dom";
+import testCake from "../../assets/testCake.png"
 interface ProductCardProps {
+  id?: string;
   title: string;
   price: number;
   description: string;
@@ -9,35 +10,47 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  id,
   title,
   price,
   description,
   image,
-}) => (
-  <div
-    aria-label={`${title} - ${price}£`}
-    className="bg-[#FFF8F0] rounded-xl shadow-md p-4 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full"
-  >
+}) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (id) {
+      navigate(`/product/${id}`);
+    }
+  };
+
+    return (
+    <div
+      aria-label={`${title} - ${price}£`}
+      className="bg-cardColor rounded-xl shadow-md p-7 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer"
+      onClick={handleCardClick}
+    >
     {image && (
-      <div className="rounded-lg overflow-hidden mb-3 flex-shrink-0">
+      <div className="rounded-lg overflow-hidden mb-6 flex-shrink-0 aspect-[4/3]">
         <img
-          src={instagram}
+          src={testCake}
           alt={title}
           loading="lazy"
-          className="w-full h-56 object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
     )}
 
-    <div className="flex justify-between items-center mt-1 mb-1">
+    <div className="flex justify-between items-center mb-2">
       <span className="font-bold text-base">{title}</span>
       <span className="font-bold text-base">{price} £</span>
     </div>
 
-    <p className="text-xs leading-tight flex-1">
+    <p className="text-sm leading-relaxed">
       {description}
     </p>
   </div>
-);
+  );
+};
 
 export default ProductCard;

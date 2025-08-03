@@ -5,7 +5,7 @@ import whatsapp from "../../assets/icons/whatsapp.png";
 const Footer: React.FC = () => {
 
     return (
-        <footer className="bg-blueCustom w-full fixed bottom-0 p-2 h-34">
+        <footer className="bg-blueCustom w-full p-2 h-34">
             <div className="grid grid-cols-2 items-center h-full">
                 <div>
                     <p className="font-bold">Site name or LOGO</p>
