@@ -4,6 +4,7 @@ import PresentationCard from "../components/layouts/PresentationCard";
 
 const products = [
   {
+    id: "cake-1",
     title: "CAKE 1",
     price: 25,
     description:
@@ -11,6 +12,7 @@ const products = [
     image: "url1",
   },
   {
+    id: "cake-2",
     title: "CAKE 2",
     price: 30,
     description:
@@ -18,6 +20,31 @@ const products = [
     image: "url2",
   },
   {
+    id: "cake-3",
+    title: "CAKE 3",
+    price: 20,
+    description:
+      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
+    image: "url3",
+  },
+  {
+    id: "cake-1",
+    title: "CAKE 1",
+    price: 25,
+    description:
+      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
+    image: "url1",
+  },
+  {
+    id: "cake-2",
+    title: "CAKE 2",
+    price: 30,
+    description:
+      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
+    image: "url2",
+  },
+  {
+    id: "cake-3",
     title: "CAKE 3",
     price: 20,
     description:
@@ -29,10 +56,6 @@ const products = [
 const presentation = [
   {
     image: "url1",
-    title: "Notre boutique",
-    subtitle: "Qualité & Passion",
-    description:
-      "Nous combinons savoir-faire artisanal et ingrédients premium pour des créations uniques.",
   },
 ];
 
@@ -61,10 +84,6 @@ export default function Home() {
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">
           Our best sellers
         </h1>
-        <p className="mb-6">
-          Le Lorem Ipsum est simplement du faux texte employé dans la composition
-          et la mise en page avant impression.
-        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
           {products.map((p, i) => (
@@ -75,7 +94,7 @@ export default function Home() {
         <div className="mt-10 flex justify-center">
           <button
             onClick={() => navigate("/Products")}
-            className="w-[280px] bg-pink-400 hover:bg-pink-500 text-white font-semibold transition duration-300 py-3 rounded-full"
+            className="w-full max-w-[280px] bg-pink-400 hover:bg-pink-500 text-white font-semibold transition duration-300 py-3 rounded-xl"
           >
             See all products
           </button>
@@ -83,38 +102,42 @@ export default function Home() {
 
         {/* Section présentation / features */}
         <div className="mt-16">
-          <h1 className="pt-5 text-3xl font-bold mb-4">Why Choose our boutique</h1>
-          <p className="mb-6">
-            Le Lorem Ipsum est simplement du faux texte employé dans la composition
-            et la mise en page avant impression. Le Lorem Ipsum est simplement du faux
-            texte employé dans la composition et la mise en page avant impression.
-          </p>
-
-          {/* Layout : petites cards à gauche, grande card à droite */}
+          {/* Layout : grande card à gauche, contenu à droite */}
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Colonne de petites cards */}
-            <div className="flex flex-col gap-6 md:w-1/3">
-              {features.map((f) => (
-                <div key={f.id} className="flex flex-col items-start gap-2">
-                  <div className="bg-[#FFF8F0] rounded-xl shadow-md p-3 flex items-center justify-center flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-20 h-20">
-                    {f.id}
-                  </div>
-                  <p className="text-sm">{f.text}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Grande carte de présentation */}
-            <div className="md:flex-1">
+            {/* Grande carte de présentation à gauche */}
+            <div className="hidden md:block md:w-1/3">
               {presentation.map((p, i) => (
                 <div key={i} className="w-full">
                   <PresentationCard {...p} />
                 </div>
               ))}
             </div>
+
+            {/* Contenu à droite : titre, description, features */}
+            <div className="w-full md:w-2/3">
+              <h1 className="pt-5 text-3xl font-bold mb-4">Why Choose our boutique</h1>
+              <p className="mb-6">
+                Le Lorem Ipsum est simplement du faux texte employé dans la composition
+                et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.
+              </p>
+              
+              {/* Feature cards */}
+              <div className="flex flex-col gap-6">
+                {features.map((f) => (
+                  <div key={f.id} className="flex items-center gap-5">
+                    <div className="bg-[#FFF8F0] rounded-xl shadow-md p-3 flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-2xl">
+                      {f.id}
+                    </div>
+                    <p className="text-sm flex-1 semi-bold">{f.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      {/* Add extra spacing before footer */}
+      <div className="h-16"></div>
     </div>
   );
 }
