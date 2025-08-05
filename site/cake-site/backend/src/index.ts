@@ -1,10 +1,11 @@
 import express from "express";
-import productRoutes from './routes/product.route';
+import productRoutes from './routes/Product.route';
 import authRoutes from './routes/auth.route';
 import { PrismaClient } from "@prisma/client";
 import dotenv from 'dotenv';
 import {Request, Response } from "express";
 import { Router } from "express";
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
+app.use(cors());
 
 //Routes
 app.get('/', (req:Request, res:Response) => {
