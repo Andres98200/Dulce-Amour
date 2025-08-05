@@ -3,6 +3,7 @@ import Navbar from './components/layouts/Navbar';
 import Footer from './components/layouts/Footer';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
+import Products from './pages/Products';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<div>Login Page</div>} />
         <Route path='/AboutUs' element={<div> About us </div>}/>
-        <Route path='/Products' element={<div> Products </div>}/>
+        <Route path='/Products' element={<Products/>}/>
         <Route path='/Home' element={<Home />}/>
         <Route path='/product/:id' element={<ProductDetails />}/>
       </Routes>

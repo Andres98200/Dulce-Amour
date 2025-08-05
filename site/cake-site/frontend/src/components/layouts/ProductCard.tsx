@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import testCake from "../../assets/testCake.png"
+import testCake from "../../assets/testCake.jpg"
 interface ProductCardProps {
   id?: string;
   title: string;
@@ -27,16 +27,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return (
     <div
       aria-label={`${title} - ${price}£`}
-      className="bg-cardColor rounded-xl shadow-md p-7 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer"
+      className="bg-cardColor rounded-xl shadow-md p-7 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
       onClick={handleCardClick}
     >
     {image && (
-      <div className="rounded-lg overflow-hidden mb-6 flex-shrink-0 aspect-[4/3]">
+      <div className="rounded-lg overflow-hidden mb-6 flex-shrink-0 aspect-[3/3]">
         <img
-          src={testCake}
+          src={image || testCake}
           alt={title}
           loading="lazy"
           className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = testCake;
+          }}
         />
       </div>
     )}

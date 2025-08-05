@@ -35,22 +35,6 @@ const products = [
       "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
     image: "url1",
   },
-  {
-    id: "cake-2",
-    title: "CAKE 2",
-    price: 30,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url2",
-  },
-  {
-    id: "cake-3",
-    title: "CAKE 3",
-    price: 20,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url3",
-  },
 ];
 
 const presentation = [
@@ -72,6 +56,10 @@ const features = [
     id: 3,
     text: "Un service personnalisé pour chaque client.",
   },
+  {
+    id: 4,
+    text: "Un service personnalisé pour chaque client.",
+  },
 ];
 
 export default function Home() {
@@ -79,13 +67,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
-      <div className="w-full px-4 max-w-[1200px] mx-auto">
+      <div className="w-full px-8">
         {/* Section best sellers */}
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">
           Our best sellers
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
           {products.map((p, i) => (
             <ProductCard key={i} {...p} />
           ))}

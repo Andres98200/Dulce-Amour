@@ -1,5 +1,5 @@
 import React from "react";
-import testCake from "../../assets/testCake.png";
+import testCake from "../../assets/testCake.jpg";
 
 interface PresentationCardProps {
   image?: string;
@@ -12,7 +12,7 @@ const PresentationCard: React.FC<PresentationCardProps> = ({
     className="bg-cardColor rounded-xl shadow-md flex flex-col flex-shrink-0 overflow-hidden w-full aspect-[4/3]"
   >
     {image && (
-      <div className="rounded-lg overflow-hidden flex-shrink-0 h-full">
+    <div className="rounded-lg overflow-hidden flex-shrink-0 h-full ">
         <img
           src={testCake}
           loading="lazy"
