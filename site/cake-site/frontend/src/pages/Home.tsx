@@ -1,69 +1,51 @@
+import React, { useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/layouts/ProductCard";
 import PresentationCard from "../components/layouts/PresentationCard";
-
-const products = [
-  {
-    id: "cake-1",
-    title: "CAKE 1",
-    price: 25,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url1",
-  },
-  {
-    id: "cake-2",
-    title: "CAKE 2",
-    price: 30,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url2",
-  },
-  {
-    id: "cake-3",
-    title: "CAKE 3",
-    price: 20,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url3",
-  },
-  {
-    id: "cake-1",
-    title: "CAKE 1",
-    price: 25,
-    description:
-      "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
-    image: "url1",
-  },
-];
-
-const presentation = [
-  {
-    image: "url1",
-  },
-];
-
+import type { Product } from "../types/Product";
+import { getProductbyId } from "../services/api";
+import testCake from "../assets/testCake.jpg";
 const features = [
   {
     id: 1,
-    text: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.",
+    text: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500."
   },
   {
     id: 2,
-    text: "Des ingrédients sélectionnés avec soin pour garantir fraîcheur et goût.",
+    text: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500."
   },
   {
     id: 3,
-    text: "Un service personnalisé pour chaque client.",
+    text: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500."
   },
   {
     id: 4,
-    text: "Un service personnalisé pour chaque client.",
-  },
-];
+    text: "Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500."
+  }
+]
 
 export default function Home() {
   const navigate = useNavigate();
+  const [bestSellers, setBestSellers] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const bestSellersIds = ["2", "3", "4", "5"];
+
+    Promise.all(bestSellersIds.map(id => getProductbyId(id)))
+    .then(Products => {
+      setBestSellers(Products);
+      setLoading(false);
+    })
+    .catch(err => {
+      setError(err.message);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <div className="pt-5 text-3xl font-bold mb-4">Chargement des proudits</div>;
+  if (error) return <div className="pt-5 text-3xl font-bold mb-4"> Erreur : {error}</div>;
 
   return (
     <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
@@ -74,8 +56,15 @@ export default function Home() {
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
-          {products.map((p, i) => (
-            <ProductCard key={i} {...p} />
+          {bestSellers.map(p => (
+            <ProductCard 
+            key={p.id}
+            id={String(p.id)}
+            title={p.title}
+            description={p.description}
+            price={p.price}
+            image={p.images[0]?.url ?? undefined}
+              />
           ))}
         </div>
 
@@ -94,11 +83,9 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Grande carte de présentation à gauche */}
             <div className="hidden md:block md:w-1/3">
-              {presentation.map((p, i) => (
-                <div key={i} className="w-full">
-                  <PresentationCard {...p} />
-                </div>
-              ))}
+              <PresentationCard
+                image={testCake}
+              />
             </div>
 
             {/* Contenu à droite : titre, description, features */}
