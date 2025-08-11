@@ -1,20 +1,47 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import PresentationCard from "../components/layouts/PresentationCard";
+import { getProductbyId } from "../services/api";
+import ProductCard from "../components/layouts/ProductCard";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const { product: stateProduct } = location.state || {};
+  const [product, setProduct] = useState(stateProduct || null);
+
+  useEffect(() => {
+    if (!product && id) {
+      getProductbyId(id).then(setProduct).catch(console.error);
+    }
+  }, [id, product]);
+
+  if (!product) {
+    return <div className="pt-20 text-center">Chargement...</div>;
+  }
 
   return (
-    <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
-      <div className="w-full px-4 max-w-[1200px] mx-auto">
-        <h1 className="text-3xl font-bold mb-4">Product Details</h1>
-        <p className="mb-6">Product ID: {id}</p>
-        
-        {/* Add your product details content here */}
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4">Product Information</h2>
-          <p>This is the details page for product: {id}</p>
-          {/* Add more product details, images, etc. */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8 pt-20">
+      <div className="max-w-7xl flex flex-col md:flex-row gap-8 p-8">
+        {/* Image à gauche */}
+        <div className=" flex justify-center items-center">
+          <ProductCard image={product.image} />
+        </div>
+
+        {/* Infos à droite */}
+        <div className="md:w-1/2 flex flex-col justify-between">
+          <div>
+            <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
+            <p className="text-xl font-semibold mb-6">{product.price} £</p>
+            <p className="mb-6 text-gray-700">{product.description}</p>
+          </div>
+
+          <button
+            onClick={() => alert("Contactez-nous à contact@votresite.com")}
+            className="justify-center bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition"
+          >
+            Nous contacter
+          </button>
         </div>
       </div>
     </div>

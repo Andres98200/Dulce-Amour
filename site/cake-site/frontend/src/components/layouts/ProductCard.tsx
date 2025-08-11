@@ -20,9 +20,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   const handleCardClick = () => {
     if (id) {
-      navigate(`/product/${id}`);
+      navigate(`/product/${id}`, {
+        state: {
+          product: { id, title, image, description, price },
+        },
+      });
     }
   };
+  
 
     return (
     <div
