@@ -80,18 +80,33 @@ export const getProduct = async (req: Request, res: Response) => {
 };
 
 //select all products
-export const getAllProducts = async (req:Request, res:Response) => {
-  try{
+export const getAllProducts = async (req: Request, res: Response) => {
+  try {
+    // Lecture des paramètres query (page et limit)
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 8; // 8 produits par page
+    const skip = (page - 1) * limit;
+
+    // Récupération des produits paginés
     const products = await prisma.product.findMany({
-      include: {images: true},
-    });
-    res.status(200).json({message: "List of all products",
-      products,
+      skip,
+      take: limit,
+      include: { images: true },
     });
 
-  }catch(error: any){
-    console.error("Error fetching all the products", error);
-    res.status(500).json({message: "Error on server"});
+    // Nombre total de produits
+    const totalProducts = await prisma.product.count();
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    res.status(200).json({
+      message: "List of products",
+      products,
+      currentPage: page,
+      totalPages,
+    });
+  } catch (error: any) {
+    console.error("Error fetching products", error);
+    res.status(500).json({ message: "Error on server" });
   }
 };
 
