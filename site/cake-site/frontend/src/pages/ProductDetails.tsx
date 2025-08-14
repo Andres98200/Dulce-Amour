@@ -4,6 +4,10 @@ import { getProductbyId } from "../services/api";
 import testCake from "../assets/testCake.jpg";
 import ProductDescription from "../components/layouts/ProductDetailCard";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/swiper-bundle.css";
+
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<any>(null);
@@ -20,22 +24,36 @@ export default function ProductDetails() {
     return <div className="pt-20 text-center">Chargement...</div>;
   }
 
-  const imageUrl = product.images?.[0]?.url || testCake;
+  const images = product.images?.length
+    ? product.images.map((img: any) => img.url)
+    : [testCake];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-8 pt-20">
       <div className="max-w-6xl w-full bg-cardColor rounded-xl shadow-md flex flex-col md:flex-row gap-8 p-8">
         
-        {/* Image */}
-        <div className="md:w-2/2">
-          <img
-            src={imageUrl}
-            alt={product.title}
-            className="w-full h-full object-cover rounded-xl shadow-md"
-          />
+        {/* Carrousel d'images */}
+        <div className="md:w-1/2">
+          <Swiper
+            modules={[Navigation]}
+            navigation
+            spaceBetween={10}
+            slidesPerView={1}
+            className="rounded-xl"
+          >
+            {images.map((url: string, index: number) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={url}
+                  alt={`${product.title} ${index + 1}`}
+                  className="w-full h-full object-cover rounded-xl"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
-        {/* Texte produit avec composant */}
+        {/* Description produit */}
         <div className="md:w-1/2 flex flex-col justify-center ">
           <ProductDescription
             title={product.title}
@@ -44,6 +62,7 @@ export default function ProductDetails() {
             onContactClick={() => alert("Contactez-nous")}
           />
         </div>
+        
 
       </div>
     </div>
