@@ -38,7 +38,7 @@ export const login = async(req:Request, res:Response) => {
         const token = jwt.sign({ email }, process.env.JWT_TOKEN as string,{
             expiresIn:'1h',
         });
-        console.log("token generated", token)
+        console.log("token generated")
 
         res.status(200).json({ message: `Successfully Connected, welcome ${adminEmail}`, token});
 
