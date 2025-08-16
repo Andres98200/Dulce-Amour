@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface ProductDescriptionProps {
   title: string;
@@ -11,8 +12,10 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
   title,
   price,
   description,
-  onContactClick
+  onContactClick,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col h-full">
       <div>
@@ -25,7 +28,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
         onClick={onContactClick}
         className="mt-8 self-center bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition justify-center"
       >
-        Nous contacter
+        {t("Contact Us")}
       </button>
     </div>
   );
