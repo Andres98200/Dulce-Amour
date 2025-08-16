@@ -5,6 +5,8 @@ import PresentationCard from "../components/layouts/PresentationCard";
 import type { Product } from "../types/Product";
 import { getProductbyId } from "../services/api";
 import testCake from "../assets/testCake.jpg";
+import { useTranslation } from "react-i18next";
+
 const features = [
   {
     id: 1,
@@ -29,7 +31,7 @@ export default function Home() {
   const [bestSellers, setBestSellers] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const bestSellersIds = ["2", "3", "4", "5"];
 
@@ -44,7 +46,7 @@ export default function Home() {
     });
   }, []);
 
-  if (loading) return <div className="pt-5 text-3xl font-bold mb-4">Chargement des proudits</div>;
+  if (loading) return <div className="pt-5 text-3xl font-bold mb-4">{t("Loading")}</div>;
   if (error) return <div className="pt-5 text-3xl font-bold mb-4"> Erreur : {error}</div>;
 
   return (
@@ -52,7 +54,7 @@ export default function Home() {
       <div className="w-full px-8">
         {/* Section best sellers */}
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">
-          Our best sellers
+          {t("Our Best Sellers")}
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
@@ -73,7 +75,7 @@ export default function Home() {
             onClick={() => navigate("/Products")}
             className="w-full max-w-[280px] bg-pink-400 hover:bg-pink-500 text-white font-semibold transition duration-300 py-3 rounded-xl"
           >
-            See all products
+            {t("See all products")}
           </button>
         </div>
 
@@ -90,7 +92,7 @@ export default function Home() {
 
             {/* Contenu à droite : titre, description, features */}
             <div className="w-full md:w-2/3">
-              <h1 className="pt-5 text-3xl font-bold mb-4">Why Choose our boutique</h1>
+              <h1 className="pt-5 text-3xl font-bold mb-4">{t("Why Choose our boutique ?")}</h1>
               <p className="mb-6">
                 Le Lorem Ipsum est simplement du faux texte employé dans la composition
                 et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.
