@@ -5,7 +5,7 @@ const LanguageSwitch = () => {
   const currentLang = i18n.language;
 
   const getButtonClass = (lang: string) =>
-    `px-2 py-2 rounded-lg text-xs font-semibold transition-colors duration-200
+    `px-2 py-1 rounded-lg text-xs font-semibold transition-colors duration-200
      ${currentLang === lang ? "bg-roseCustom text-white" : "bg-gray-200 text-black hover:bg-pink-100"}`;
 
   return (

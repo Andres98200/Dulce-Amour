@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import ProductCard from "../components/layouts/ProductCard";
 import type { Product } from "../types/Product";
 import type { ProductListResponse } from "../types/Product";
 import { fetchData } from "../services/api";
+import { useTranslation } from "react-i18next";
 
 const Products: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -12,6 +13,8 @@ const Products: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const productsPerPage = 8;
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     setLoading(true);
@@ -41,9 +44,9 @@ const Products: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
       <div className="w-full px-8 mx-auto">
-        <h1 className="pt-5 text-3xl font-bold mb-4 text-left">All of our Cakes</h1>
+        <h1 className="pt-5 text-3xl font-bold mb-4 text-left">{t("All of our Cakes")}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
-          {products.length === 0 && <p>Aucun produit disponible</p>}
+          {products.length === 0 && <p>{t("Aucun produit disponible")}</p>}
           {products.map((p) => (
             <ProductCard
               key={p.id}
@@ -63,7 +66,7 @@ const Products: React.FC = () => {
             disabled={currentPage === 1}
             className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
           >
-            Précédent
+            {t("Previous")}
           </button>
 
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -85,7 +88,7 @@ const Products: React.FC = () => {
             disabled={currentPage === totalPages}
             className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-30"
           >
-            Suivant
+            {t("Next")}
           </button>
         </div>
       </div>
