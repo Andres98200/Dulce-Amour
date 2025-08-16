@@ -19,3 +19,21 @@ export async function getProductbyId(productId:string): Promise<Product> {
     console.log("Product successfully fetched", data.product)
     return data.product;
 }
+
+// login
+ export async function logIn(email: string, password: string){
+  const response = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      email,
+      password 
+  })
+  });
+  if (!response.ok) throw new Error("Error while logging in");
+  const data = await response.json();
+  console.log("User successfully logged in", data);
+  return data;
+}
