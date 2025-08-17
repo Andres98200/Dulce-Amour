@@ -29,7 +29,7 @@ const Products: React.FC = () => {
         setError(err.message);
         setLoading(false);
       });
-  }, [currentPage]); // currentPage est ok ici, car il est déclaré via useState
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -45,7 +45,7 @@ const Products: React.FC = () => {
     <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
       <div className="w-full px-8 mx-auto">
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">{t("All of our Cakes")}</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
           {products.length === 0 && <p>{t("Aucun produit disponible")}</p>}
           {products.map((p) => (
             <ProductCard
