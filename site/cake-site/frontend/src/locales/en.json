@@ -10,6 +10,10 @@
     "Loading": "Loading...",
     "Contact Us": "Contact Us",
     "Next": "Next",
-    "Previous": "Previous"
+    "Previous": "Previous",
+    "Email": "Email",
+    "Password": "Password",
+    "Login successful": "Login successful",
+    "Login failed. Please check your email and password.": "Login failed. Please check your email and password."
 
 }

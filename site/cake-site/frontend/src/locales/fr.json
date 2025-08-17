@@ -10,5 +10,9 @@
     "Loading...": "Chargement...",
     "Contact Us": "Contactez-nous",
     "Next": "Suivant",
-    "Previous": "Précédent"
+    "Previous": "Précédent",
+    "Email": "Email",
+    "Password": "Mot de passe",
+    "Login successful": "Connexion réussie",
+    "Login failed. Please check your email and password.": "Échec de la connexion. Veuillez vérifier votre email et mot de passe."
 }

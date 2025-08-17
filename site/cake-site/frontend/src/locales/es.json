@@ -10,6 +10,10 @@
     "Loading": "Cargando...",
     "Contact Us": "Contáctanos",
     "Next": "Siguiente",
-    "Previous": "Anterior"
+    "Previous": "Anterior",
+    "Email": "Correo Electrónico",
+    "Password": "Contraseña",
+    "Login successful": "Inicio de Sesión exitoso",
+    "Login failed. Please check your email and password.": "Error de inicio de sesión. Por favor verifica tu correo electrónico y contraseña."
 
 }
