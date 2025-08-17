@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return (
     <div
       aria-label={`${title} - ${price}£`}
-      className="bg-cardColor rounded-xl shadow-md p-7 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
+      className="bg-cardColor rounded-xl shadow-md p-8 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
       onClick={handleCardClick}
     >
     {image && (

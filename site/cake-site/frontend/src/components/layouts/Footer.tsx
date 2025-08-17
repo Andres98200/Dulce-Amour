@@ -1,8 +1,10 @@
 import facebook from "../../assets/icons/facebook.png";
 import instagram from "../../assets/icons/instagram.png";
 import whatsapp from "../../assets/icons/whatsapp.png";
+import { useTranslation } from "react-i18next";
 
 const Footer: React.FC = () => {
+    const { t } = useTranslation();
 
     return (
         <footer className="bg-blueCustom w-full p-2 h-34">
@@ -11,7 +13,7 @@ const Footer: React.FC = () => {
                     <p className="font-bold">Site name or LOGO</p>
                 </div>
                 <div className="flex flex-col items-end">
-                    <p className="font-bold mb-2">Contact Us</p>
+                    <p className="font-bold mb-2">{t("Our Social Medias")}</p>
                     <ul className="flex flex-col items-start space-y-2">
                         <li>
                             <a href="https://www.facebook.com/decor_artballons/" target="_blank" rel="noopener noreferrer">

@@ -57,7 +57,7 @@ export default function Home() {
           {t("Our Best Sellers")}
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 w-full">
           {bestSellers.map(p => (
             <ProductCard 
             key={p.id}
@@ -82,17 +82,17 @@ export default function Home() {
         {/* Section présentation / features */}
         <div className="mt-16">
           {/* Layout : grande card à gauche, contenu à droite */}
-          <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex flex-col xl:flex-row gap-8 items-center xl:items-start">
             {/* Grande carte de présentation à gauche */}
-            <div className="hidden md:block md:w-1/3">
+            <div className="hidden xl:block xl:w-1/3">
               <PresentationCard
                 image={testCake}
               />
             </div>
 
             {/* Contenu à droite : titre, description, features */}
-            <div className="w-full md:w-2/3">
-              <h1 className="pt-5 text-3xl font-bold mb-4">{t("Why Choose our boutique ?")}</h1>
+            <div className="w-full xl:w-2/3 flex flex-col xl:items-start">
+              <h1 className="pt-5 text-3xl font-bold mb-4 text-left">{t("Why Choose our boutique ?")}</h1>
               <p className="mb-6">
                 Le Lorem Ipsum est simplement du faux texte employé dans la composition
                 et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500.
