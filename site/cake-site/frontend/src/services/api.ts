@@ -1,5 +1,6 @@
 import type { Product, ProductListResponse, ProductResponse } from "../types/Product";
 const API_URL = import.meta.env.VITE_API_URL;
+const AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL;
 // get all products
 export async function fetchData(page = 1, limit = 8): Promise<ProductListResponse> {
   const response = await fetch(`${API_URL}/All-Products?page=${page}&limit=${limit}`);
@@ -22,7 +23,7 @@ export async function getProductbyId(productId:string): Promise<Product> {
 
 // login
  export async function logIn(email: string, password: string){
-  const response = await fetch(`${API_URL}/auth/login`, {
+  const response = await fetch(`${AUTH_API_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

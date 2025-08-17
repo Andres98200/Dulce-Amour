@@ -102,7 +102,7 @@ export default function Home() {
               <div className="flex flex-col gap-6">
                 {features.map((f) => (
                   <div key={f.id} className="flex items-center gap-5">
-                    <div className="bg-[#FFF8F0] rounded-xl shadow-md p-3 flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-2xl">
+                    <div className="bg-cardColor rounded-xl shadow-md p-3 flex items-center justify-center flex-shrink-0 w-12 h-12 font-bold text-2xl">
                       {f.id}
                     </div>
                     <p className="text-sm flex-1 semi-bold">{f.text}</p>
