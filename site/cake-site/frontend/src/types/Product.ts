@@ -16,7 +16,7 @@ export interface Image {
 export interface ProductListResponse {
     message: string,
     products: Product[];
-    currentPage: number; // page courante
+    currentPage: number;
     totalPages: number; 
 }
 
