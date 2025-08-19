@@ -1,4 +1,3 @@
-import { Trophy } from "lucide-react";
 import type { Product, ProductListResponse, ProductResponse } from "../types/Product";
 const API_URL = import.meta.env.VITE_API_URL;
 const AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL;
@@ -68,7 +67,7 @@ export async function EditProduct(productId: string, productData: Product, files
 }
 
 //add product
-export async function addProduct(productData: any){
+export async function addProduct(productData: Product & { images?: File[]}){
   const formData = new FormData();
   formData.append("title", productData.title);
   formData.append("description", productData.description);
@@ -80,10 +79,10 @@ export async function addProduct(productData: any){
     });
   }
   const token = sessionStorage.getItem("token");
-  const response = await fetch(`${API_URL}`{
+  const response = await fetch(`${API_URL}`,{
     method:"POST",
     headers: {
-      "Authorization": `Bearer${token}`,
+      "Authorization": `Bearer ${token}`,
     },
     body: formData,
   });
@@ -92,4 +91,30 @@ export async function addProduct(productData: any){
   const data = await response.json();
   console.log("Product created and add successfuly", data);
   return data;
+  }
+
+  //delete Product
+
+  export async function deleteProduct(productId: string){
+    try{
+      const token = sessionStorage.getItem("token");
+      if(!token){
+        throw new Error("Not token found, please log in");
+      }
+      const response = await fetch(`${API_URL}/delete-Product/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      if (!response.ok){
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete the product")
+      }
+      const data = await response.json();
+      console.log("Product deleted successfuly", data);
+      return data;
+    } catch(error:any){
+      console.error("Error while deleting the product", error.message || error);
+    }
   }
