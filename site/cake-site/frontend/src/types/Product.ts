@@ -24,3 +24,11 @@ export interface ProductResponse {
     message: string,
     product: Product;
 }
+
+//for the form 
+export interface ProductInput {
+    title: string,
+    description: string,
+    price: number,
+    images?: File[];
+}
