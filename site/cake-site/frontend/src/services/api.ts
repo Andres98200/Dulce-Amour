@@ -41,7 +41,7 @@ export async function getProductbyId(productId:string): Promise<Product> {
 }
 
 // edit Product
-export async function EditProduct(productId: number, productData: ProductInput){
+export async function EditProduct(productId: string, productData: ProductInput,files?: FileList) {
   const token = sessionStorage.getItem("token");
   if (!token) throw new Error("No token found. Please log in.");
 
@@ -50,8 +50,8 @@ export async function EditProduct(productId: number, productData: ProductInput){
   formData.append("price", productData.price.toString());
   formData.append("description", productData.description);
 
-  if (productData.images) {
-    productData.images.forEach((file) => formData.append("images", file));
+  if (files && files.length > 0) {
+    Array.from(files).forEach(file => formData.append("images", file));
   }
 
   const response = await fetch(`${API_URL}/update-Product/${productId}`, {
@@ -67,35 +67,47 @@ export async function EditProduct(productId: number, productData: ProductInput){
     throw new Error(errorData.message || "Failed to update the product");
   }
 
-  return await response.json();
+  const data = await response.json();
+  console.log("Product successfully updated", data);
+  return data;
 }
 
+
 //add product
-export async function addProduct(productData: ProductInput){
+// src/services/api.ts
+export async function addProduct(productData: ProductInput, files?: FileList) {
+  const token = sessionStorage.getItem("token");
+  if (!token) throw new Error("No token found. Please log in.");
+
+  // Création du FormData
   const formData = new FormData();
   formData.append("title", productData.title);
   formData.append("description", productData.description);
   formData.append("price", productData.price.toString());
 
-  if(productData.images && productData.images.length > 0 ) {
-    productData.images.forEach((img: File ) => {
-      formData.append("images",img);
-    });
+  // Ajout des fichiers si présents
+  if (files && files.length > 0) {
+    Array.from(files).forEach(file => formData.append("images", file));
   }
-  const token = sessionStorage.getItem("token");
-  const response = await fetch(`${API_URL}`,{
-    method:"POST",
+
+  const response = await fetch(`${API_URL}`, {
+    method: "POST",
     headers: {
-      "Authorization": `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: formData,
   });
 
-  if(!response.ok) throw new Error("Error while creating a product");
-  const data = await response.json();
-  console.log("Product created and add successfuly", data);
-  return data;
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Error while creating a product");
   }
+
+  const data = await response.json();
+  console.log("Product created successfully", data);
+  return data;
+}
+
 
   //delete Product
 
