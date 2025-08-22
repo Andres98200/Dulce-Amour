@@ -4,7 +4,7 @@ import testCake from "../../assets/testCake.jpg"
 interface ProductCardProps {
   id?: string;
   title: string;
-  price: number;
+  price: string;
   description: string;
   image?: string;
 }

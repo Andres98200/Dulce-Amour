@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { Languages, Menu, X } from 'lucide-react';
+import { Languages, LogOut, Menu, X } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import LanguageSwitch from "./LanguageSwitch";
+import { logout } from "../../services/api";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ const Navbar: React.FC = () => {
           <li>
             <button onClick={() => navigate('/login')}>
               {t("Log In")}
+            </button>
+          </li>
+          <li>
+            <button onClick={logout}>
+              {t("Log Out")}
             </button>
           </li>
         </ul>

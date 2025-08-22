@@ -42,7 +42,7 @@ const Products: React.FC = () => {
   if (error) return <div className="pt-20 text-center">Erreur : {error}</div>;
 
   return (
-    <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
+    <div className="pt-20 bg-gray-50 flex flex-col min-h-screen">
       <div className="w-full px-8 mx-auto">
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">{t("All of our Cakes")}</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">

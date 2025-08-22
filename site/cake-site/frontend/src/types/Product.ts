@@ -1,7 +1,7 @@
 export interface Product  {
     id: number,
     title: string,
-    price: number,
+    price: string,
     description: string,
     images: Image[],
     imagePublicId?: string | null; 
@@ -29,6 +29,6 @@ export interface ProductResponse {
 export interface ProductInput {
     title: string,
     description: string,
-    price: number,
+    price: string,
     images?: File[];
 }

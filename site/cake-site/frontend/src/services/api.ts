@@ -40,6 +40,12 @@ export async function getProductbyId(productId:string): Promise<Product> {
   return data;
 }
 
+export const logout = () => {
+  sessionStorage.removeItem("token"); // supprime le token
+  window.location.href = "/login";    // redirige vers la page de login
+};
+
+
 // edit Product
 export async function EditProduct(productId: string, productData: ProductInput,files?: FileList) {
   const token = sessionStorage.getItem("token");
