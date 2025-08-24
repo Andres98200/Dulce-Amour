@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { Languages, LogOut, Menu, X } from 'lucide-react';
+import { Languages, Menu, X } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import LanguageSwitch from "./LanguageSwitch";
-import { logout } from "../../services/api";
+import { logout as apiLogout } from "../../services/api";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [openLangMenu, setOpenLangMenu] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const token = sessionStorage.getItem("token");
+  const isLoggedIn = !!token;
+
+  const handleLogout = () => {
+  apiLogout(); 
+  navigate("/login");
+};
+
 
   return (
     <nav className="bg-roseCustom text-base-gray-950 p-4 w-full fixed top-0 left-0 z-50">
@@ -42,16 +51,19 @@ const Navbar: React.FC = () => {
           <li>
             <Link to="/AboutUs">{t("About Us")}</Link>
           </li>
+          {isLoggedIn ? (
+            <li>
+              <button onClick={handleLogout}>
+                {t("Log Out")}
+              </button>
+          </li>
+          ) : (
           <li>
             <button onClick={() => navigate('/login')}>
               {t("Log In")}
             </button>
           </li>
-          <li>
-            <button onClick={logout}>
-              {t("Log Out")}
-            </button>
-          </li>
+          )}
         </ul>
 
         {/* Mobile Burger Menu Button */}
