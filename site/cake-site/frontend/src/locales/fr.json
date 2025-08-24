@@ -14,5 +14,16 @@
     "Email": "Email",
     "Password": "Mot de passe",
     "Login successful": "Connexion réussie",
-    "Login failed. Please check your email and password.": "Échec de la connexion. Veuillez vérifier votre email et mot de passe."
+    "Login failed. Please check your email and password.": "Échec de la connexion. Veuillez vérifier votre email et mot de passe.",
+    "Add Product":"Ajouter Produit",
+    "Edit": "Editer",
+    "Delete": "Supprimer",
+    "Add Images": "Ajouter des Images",
+    "Edit Product": "Editer un Produit",
+    "Title": "Titre",
+    "Description": "Description",
+    "Price": "Prix",
+    "Update": "Mettre à jour",
+    "Add": "Ajouter",
+    "Cancel": "Annuler"
 }

@@ -33,7 +33,7 @@ export default function Login() {
       const response = await logIn(email, password);
       console.log("Login successful:", response);
       setSuccess(t("Login successful"));
-      setTimeout(() => navigate("/EditPage"), 1500);
+      setTimeout(() => navigate("/edit"), 1500);
     } catch (error) {
       console.error("Login failed:", error);
       setError(t("Login failed. Please check your email and password."));

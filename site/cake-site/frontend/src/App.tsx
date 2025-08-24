@@ -18,8 +18,6 @@ function App() {
     <Route path="/products" element={<Products />} />
     <Route path="/home" element={<Home />} />
     <Route path="/product/:id" element={<ProductDetails />} />
-
-    {/* EditPage protégé */}
     <Route
       path="/edit"
       element={
