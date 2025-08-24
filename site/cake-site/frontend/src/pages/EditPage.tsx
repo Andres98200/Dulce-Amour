@@ -172,7 +172,7 @@ export default function EditPage() {
                     <h4 className="text-lg font-bold mb-1">{p.title}</h4>
                     <p className="text-gray-600">{p.price}€</p>
                   </div>
-                  <div className="flex mt-auto gap-2 flex-wrap">
+                  <div className="flex mt-auto gap-2 flex-wrap justify-center">
                     <button onClick={() => handleEdit(p)} className="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200">
                       ✏️ Edit
                     </button>
