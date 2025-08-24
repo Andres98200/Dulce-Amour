@@ -14,6 +14,17 @@
     "Email": "Email",
     "Password": "Password",
     "Login successful": "Login successful",
-    "Login failed. Please check your email and password.": "Login failed. Please check your email and password."
+    "Login failed. Please check your email and password.": "Login failed. Please check your email and password.",
+    "Add Product":"Add Product",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Add Images": "Add Images",
+    "Edit Product": "Edit Product",
+    "Title": "Title",
+    "Description": "Description",
+    "Price": "Price",
+    "Update": "Update",
+    "Add": "Add",
+    "Cancel": "Cancel"
 
 }
