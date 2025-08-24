@@ -33,7 +33,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
   useEffect(() => {
-    const bestSellersIds = ["2", "3", "4", "5"];
+    const bestSellersIds = ["9", "10", "11", "12"];
 
     Promise.all(bestSellersIds.map(id => getProductbyId(id)))
     .then(Products => {
