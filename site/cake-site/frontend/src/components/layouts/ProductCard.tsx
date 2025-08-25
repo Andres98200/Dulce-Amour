@@ -31,7 +31,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     return (
     <div
-      aria-label={`${title} - ${price}£`}
+      aria-label={`${title} - ${price}€`}
       className="bg-cardColor rounded-xl shadow-md p-8 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
       onClick={handleCardClick}
     >
@@ -51,7 +51,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
     <div className="flex justify-between items-center mb-2">
       <span className="font-bold text-base">{title}</span>
-      <span className="font-bold text-base">{price} £</span>
+      <span className="font-bold text-base">{price}€</span>
     </div>
 
     <p className="text-sm leading-relaxed">

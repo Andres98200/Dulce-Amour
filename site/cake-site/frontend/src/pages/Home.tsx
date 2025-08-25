@@ -6,6 +6,7 @@ import type { Product } from "../types/Product";
 import { getProductbyId } from "../services/api";
 import testCake from "../assets/testCake.jpg";
 import { useTranslation } from "react-i18next";
+import ProductCardSkeleton from "../components/layouts/skeletons/CardSkeleton";
 
 const features = [
   {
@@ -38,16 +39,17 @@ export default function Home() {
     Promise.all(bestSellersIds.map(id => getProductbyId(id)))
     .then(Products => {
       setBestSellers(Products);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
     })
     .catch(err => {
       setError(err.message);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
     });
   }, []);
-
-  if (loading) return <div className="pt-5 text-3xl font-bold mb-4">{t("Loading")}</div>;
-  if (error) return <div className="pt-5 text-3xl font-bold mb-4"> Erreur : {error}</div>;
 
   return (
     <div className="flex flex-col min-h-screen pt-20 bg-gray-50">
@@ -56,6 +58,16 @@ export default function Home() {
         <h1 className="pt-5 text-3xl font-bold mb-4 text-left">
           {t("Our Best Sellers")}
         </h1>
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 w-full">
+            {[...Array(4)].map((_, i) => (
+              <ProductCardSkeleton key={i} />
+          ))}
+        </div>
+        ): error ? (
+          <p className="h1 text-red-500">{error}</p>
+        ) : (
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 w-full">
           {bestSellers.map(p => (
@@ -69,6 +81,7 @@ export default function Home() {
               />
           ))}
         </div>
+        )}
 
         <div className="mt-10 flex justify-center">
           <button
