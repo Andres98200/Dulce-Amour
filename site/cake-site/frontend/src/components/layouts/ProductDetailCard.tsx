@@ -20,7 +20,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
     <div className="flex flex-col h-full">
       <div>
         <h1 className="text-4xl font-bold mb-4">{title}</h1>
-        <p className="text-xl font-semibold text-black-600 mb-6">{price} £</p>
+        <p className="text-xl font-semibold text-black-600 mb-6">{price}€</p>
         <p className="text-gray-700 leading-relaxed">{description}</p>
       </div>
 
