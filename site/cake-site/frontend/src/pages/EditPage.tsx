@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import React, { useState, useEffect } from "react";
 import { fetchData, deleteProduct, addProduct, EditProduct } from "../services/api";
 import type { Product, ProductInput, ProductListResponse } from "../types/Product";
+import EditPageSkeleton from "../components/layouts/skeletons/EditPageSkeleton";
+import PaginationSkeleton from "../components/layouts/skeletons/PaginationSkeleton";
 
 export default function EditPage() {
   const { t } = useTranslation();
@@ -30,7 +32,11 @@ export default function EditPage() {
       const data: ProductListResponse = await fetchData(currentPage, productsPerPage);
       setProducts(data.products);
       setTotalPages(data.totalPages);
-      setLoading(false);
+
+      // Petite pause pour l'animation du skeleton
+      setTimeout(() => {
+        setLoading(false);
+      }, 800);
     } catch (err: any) {
       setError(err.message);
       setLoading(false);
@@ -103,9 +109,7 @@ export default function EditPage() {
 
   return (
     <div className="p-4 pt-20 max-w-6xl w-full mx-auto flex flex-col min-h-screen overflow-x-hidden">
-      
       {showForm ? (
-        // FORMULAIRE CARD
         <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-full max-w-lg sm:max-w-2xl mx-auto mt-8">
           <h2 className="text-xl font-semibold mb-6 flex justify-center">
             {EditingProduct ? t("Edit Product") : t("Add Product")}
@@ -163,7 +167,6 @@ export default function EditPage() {
         </div>
       ) : (
         <>
-          {/* LISTE DES PRODUITS */}
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-3 mt-8">
             <h2 className="text-xl font-semibold">{t("Products List")}</h2>
             <button
@@ -175,7 +178,11 @@ export default function EditPage() {
           </div>
 
           {loading ? (
-            <p>{t("Loading...")}</p>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {Array.from({ length: productsPerPage }).map((_, idx) => (
+                <EditPageSkeleton key={idx} />
+              ))}
+            </ul>
           ) : error ? (
             <p className="text-red-500">{error}</p>
           ) : (
@@ -200,7 +207,7 @@ export default function EditPage() {
                       onClick={() => handleDelete(p.id)}
                       className="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-800 transition-colors duration-200"
                     >
-                    {t("Delete")}
+                      {t("Delete")}
                     </button>
                     <label className="cursor-pointer px-3 py-1 bg-slate-600 text-white rounded-lg hover:bg-slate-800 transition-colors duration-200">
                       {t("Add Images")}
@@ -212,32 +219,37 @@ export default function EditPage() {
             </ul>
           )}
 
-          {/* Pagination */}
-          <div className="flex justify-center mt-8 gap-2 flex-wrap">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
-            >
-              {t("Previous")}
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          {loading ? (
+            <PaginationSkeleton />
+          ) : (
+            <div className="flex justify-center mt-8 gap-2 flex-wrap">
               <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 rounded ${page === currentPage ? "bg-roseCustom text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"}`}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
               >
-                {page}
+                {t("Previous")}
               </button>
-            ))}
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
-            >
-              {t("Next")}
-            </button>
-          </div>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`px-4 py-2 rounded ${
+                    page === currentPage ? "bg-roseCustom text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50"
+              >
+                {t("Next")}
+              </button>
+            </div>
+          )}
         </>
       )}
     </div>

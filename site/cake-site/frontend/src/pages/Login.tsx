@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { logIn } from "../services/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import FormSkeleton from "../components/layouts/skeletons/FormSkeleton";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -12,11 +13,16 @@ export default function Login() {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState<Boolean>(true);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   };
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  })
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,14 +37,16 @@ export default function Login() {
     }
     try {
       const response = await logIn(email, password);
-      console.log("Login successful:", response);
+      console.log("Login successful", response);
       setSuccess(t("Login successful"));
-      setTimeout(() => navigate("/edit"), 1500);
+      setTimeout(() => navigate("/edit"), 800);
     } catch (error) {
       console.error("Login failed:", error);
       setError(t("Login failed. Please check your email and password."));
     }
   };
+
+  if (loading) return <FormSkeleton />;
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
