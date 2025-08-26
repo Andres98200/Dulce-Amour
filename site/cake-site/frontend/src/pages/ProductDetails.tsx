@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getProductbyId } from "../services/api";
 import testCake from "../assets/testCake.jpg";
 import ProductDescription from "../components/layouts/ProductDetailCard";
+import ProductDescriptionSkeleton from "../components/layouts/skeletons/ProductSkeleton";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -11,20 +12,26 @@ import "swiper/swiper-bundle.css";
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (id) {
+      setLoading(true);
       getProductbyId(id)
-        .then((data) => setProduct(data))
-        .catch((err) => console.error(err));
+        .then((data) => {
+          setTimeout(() => {
+            setProduct(data);
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     }
   }, [id]);
 
-  if (!product) {
-    return <div className="pt-20 text-center">Chargement...</div>;
-  }
-
-  const images = product.images?.length
+  const images = product?.images?.length
     ? product.images.map((img: any) => img.url)
     : [testCake];
 
@@ -34,36 +41,42 @@ export default function ProductDetails() {
         
         {/* Carrousel d'images */}
         <div className="md:w-1/2">
-          <Swiper
-            modules={[Navigation]}
-            navigation
-            spaceBetween={10}
-            slidesPerView={1}
-            className="rounded-xl"
-          >
-            {images.map((url: string, index: number) => (
-              <SwiperSlide key={index}>
-                <img
-                  src={url}
-                  alt={`${product.title} ${index + 1}`}
-                  className="w-full h-full object-cover rounded-xl"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {loading ? (
+            <div className="w-full h-80 bg-slate-200 animate-pulse rounded-xl" />
+          ) : (
+            <Swiper
+              modules={[Navigation]}
+              navigation
+              spaceBetween={10}
+              slidesPerView={1}
+              className="rounded-xl"
+            >
+              {images.map((url: string, index: number) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={url}
+                    alt={`${product.title} ${index + 1}`}
+                    className="w-full h-full object-cover rounded-xl"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
 
         {/* Description produit */}
-        <div className="md:w-1/2 flex flex-col justify-center ">
-          <ProductDescription
-            title={product.title}
-            price={product.price}
-            description={product.description}
-            onContactClick={() => alert("Contactez-nous")}
-          />
+        <div className="md:w-1/2 flex flex-col justify-center">
+          {loading ? (
+            <ProductDescriptionSkeleton />
+          ) : (
+            <ProductDescription
+              title={product.title}
+              price={product.price}
+              description={product.description}
+              onContactClick={() => alert("Contactez-nous")}
+            />
+          )}
         </div>
-        
-
       </div>
     </div>
   );
