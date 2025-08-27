@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
             <Link to="/Products">{t("Products")}</Link>
           </li>
           <li>
-            <Link to="/AboutUs">{t("About Us")}</Link>
+            <Link to="/about-us">{t("About Us")}</Link>
           </li>
           {isLoggedIn ? (
             <li>

@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import Login from './pages/Login';
 import EditPage from './pages/EditPage';
 import { PrivateRoute } from './components/layouts/PrivateRoute';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
   <Navbar />
   <Routes>
     <Route path="/login" element={<Login />} />
-    <Route path="/about-us" element={<div>About us</div>} />
+    <Route path="/about-us" element={< AboutUs />} />
     <Route path="/products" element={<Products />} />
     <Route path="/home" element={<Home />} />
     <Route path="/product/:id" element={<ProductDetails />} />
