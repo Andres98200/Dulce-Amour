@@ -91,7 +91,7 @@ const Navbar: React.FC = () => {
               <Link to="/Products" onClick={() => setIsMenuOpen(false)}>{t("Products")}</Link>
             </li>
             <li>
-              <Link to="/AboutUs" onClick={() => setIsMenuOpen(false)}>{t("About Us")}</Link>
+              <Link to="/about-us" onClick={() => setIsMenuOpen(false)}>{t("About Us")}</Link>
             </li>
             <li>
               <button 
