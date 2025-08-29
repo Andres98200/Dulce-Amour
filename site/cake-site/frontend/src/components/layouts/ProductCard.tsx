@@ -13,7 +13,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   id,
   title,
   price,
-  description,
   image,
 }) => {
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     if (id) {
       navigate(`/product/${id}`, {
         state: {
-          product: { id, title, image, description, price },
+          product: { id, title, image, price },
         },
       });
     }
@@ -32,11 +31,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
     return (
     <div
       aria-label={`${title} - ${price}€`}
-      className="bg-cardColor rounded-xl shadow-md p-8 flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
+      className=" rounded-xl flex flex-col flex-shrink-0 overflow-hidden transition-transform duration-200 hover:scale-[1.02] w-full cursor-pointer "
       onClick={handleCardClick}
     >
     {image && (
-      <div className="rounded-lg overflow-hidden mb-6 flex-shrink-0 aspect-[3/3]">
+      <div className="rounded-lg overflow-hidden mb-2 flex-shrink-0 aspect-[3/3]">
         <img
           src={image || testCake}
           alt={title}
@@ -49,14 +48,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
     )}
 
-    <div className="flex justify-between items-center mb-2">
-      <span className="font-bold text-base">{title}</span>
-      <span className="font-bold text-base">{price}€</span>
+     <div className="flex justify-between items-center">
+      <span className="font-bold text-lg">{title}</span>
+      <span className="font-bold text">{price}€</span>
     </div>
 
-    <p className="text-sm leading-relaxed">
+    {/* <p className="text-sm leading-relaxed">
       {description}
-    </p>
+    </p> */}
   </div>
   );
 };
