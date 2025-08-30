@@ -37,7 +37,7 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-8 pt-20">
-      <div className="max-w-6xl w-full bg-cardColor rounded-xl shadow-md flex flex-col md:flex-row gap-8 p-8">
+      <div className="max-w-6xl w-full bg-cardColor rounded-xl shadow-md flex flex-col md:flex-row gap-8 p-4">
         
         {/* Carrousel d'images */}
         <div className="md:w-1/2">
