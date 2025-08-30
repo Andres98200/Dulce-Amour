@@ -30,7 +30,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
         </p>
 
         {/* Description */}
-        <p className="text-gray-700 text-base leading-relaxed">
+        <p className="text-gray-700 text-base leading-relaxed ">
           {description}
         </p>
       </div>
