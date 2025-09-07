@@ -14,17 +14,28 @@ datasource db {
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  title String
-  description String
-  price Float
-  images Image[]
+  id            Int                   @id @default(autoincrement())
+  price         Float
+  images        Image[]
   imagePublicId String?
+  translations  ProductTranslation[]
+}
+
+model ProductTranslation {
+  id          Int     @id @default(autoincrement())
+  language    String
+  title       String
+  description String
+  productId   Int
+  product     Product @relation(fields: [productId], references: [id])
+
+  @@unique([productId, language])
 }
 
 model Image {
-  id Int @id @default(autoincrement())
-  url String
-  product Product @relation(fields: [productId], references: [id])
+  id        Int     @id @default(autoincrement())
+  url       String
   productId Int
+  product   Product @relation(fields: [productId], references: [id])
 }
+
