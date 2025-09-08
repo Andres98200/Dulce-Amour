@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/layouts/ProductCard";
+import ProductCardSkeleton from "../components/layouts/skeletons/CardSkeleton";
+import PaginationSkeleton from "../components/layouts/skeletons/PaginationSkeleton";
 import type { Product } from "../types/Product";
 import type { ProductListResponse } from "../types/Product";
 import { fetchData } from "../services/api";
 import { useTranslation } from "react-i18next";
-import ProductCardSkeleton from "../components/layouts/skeletons/CardSkeleton";
-import PaginationSkeleton from "../components/layouts/skeletons/PaginationSkeleton";
+import { useLang } from "../context/LangContext";
 
 const Products: React.FC = () => {
+  const { t } = useTranslation();
+  const { lang } = useLang(); 
+
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -16,26 +20,21 @@ const Products: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const productsPerPage = 8;
 
-  const { t } = useTranslation();
-
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetchData(currentPage, productsPerPage)
+
+    fetchData(lang, currentPage, productsPerPage)
       .then((data: ProductListResponse) => {
         setProducts(data.products);
         setTotalPages(data.totalPages);
-        setTimeout(() => {
-          setLoading(false);
-        }, 800)
+        setTimeout(() => setLoading(false), 800);
       })
       .catch((err) => {
         setError(err.message);
-        setTimeout(() => {
-          setLoading(false);
-        }, 800)
+        setTimeout(() => setLoading(false), 800);
       });
-  }, [currentPage]);
+  }, [currentPage, lang]);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -54,7 +53,7 @@ const Products: React.FC = () => {
         {/* Produits */}
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
-            {[...Array(8)].map((_, i) => (
+            {[...Array(productsPerPage)].map((_, i) => (
               <ProductCardSkeleton key={i} />
             ))}
           </div>
@@ -62,7 +61,7 @@ const Products: React.FC = () => {
           <p className="h1 text-red-500">{error}</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
-            {products.length === 0 && <p>{t("Aucun produit disponible")}</p>}
+            {products.length === 0 && <p className="">{t("Aucun produit disponible")}</p>}
             {products.map((p) => (
               <ProductCard
                 key={p.id}
