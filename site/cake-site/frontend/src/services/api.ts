@@ -2,8 +2,8 @@ import type { Product, ProductListResponse, ProductResponse, ProductInput } from
 const API_URL = import.meta.env.VITE_API_URL;
 const AUTH_API_URL = import.meta.env.VITE_AUTH_API_URL;
 // get all products
-export async function fetchData(page = 1, limit = 8): Promise<ProductListResponse> {
-  const response = await fetch(`${API_URL}/All-Products?page=${page}&limit=${limit}`);
+export async function fetchData(lang: "es" | "fr", page = 1, limit = 8): Promise<ProductListResponse> {
+  const response = await fetch(`${API_URL}/All-Products?lang=${lang}&page=${page}&limit=${limit}`);
   if (!response.ok) throw new Error("Error while fetching products");
   const data = (await response.json()) as ProductListResponse;
   console.log(`Products for page ${page} successfully fetched`, data.products);
@@ -13,8 +13,8 @@ export async function fetchData(page = 1, limit = 8): Promise<ProductListRespons
 
 // get a product by id
 
-export async function getProductbyId(productId:string): Promise<Product> {
-    const response = await fetch(`${API_URL}/${productId}`);
+export async function getProductbyId(productId:string, lang: "es"|"fr" = "es"): Promise<Product> {
+    const response = await fetch(`${API_URL}/${productId}?lang=${lang}`);
     if (!response.ok) throw new Error("Error while fetching the product you request");
     const data = (await response.json()) as ProductResponse;
     console.log("Product successfully fetched", data.product)

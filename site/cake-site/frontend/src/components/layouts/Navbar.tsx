@@ -4,6 +4,7 @@ import { Languages, Menu, X } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import LanguageSwitch from "./LanguageSwitch";
 import { logout as apiLogout } from "../../services/api";
+import logo from "../../assets/logo.png";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Navbar: React.FC = () => {
     <nav className="bg-roseCustom text-base-gray-950 p-4 w-full fixed top-0 left-0 z-50">
       <div className="flex justify-between items-center">
         {/* Logo/Brand */}
-        <div className="text-xl font-bold">{t("Site Name or LOGO")}</div>
+        <div className="h-full w-20 rounded-full overflow-hidden"><img src={logo} alt="Logo_Image" /></div>
         
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 items-center">
