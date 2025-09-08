@@ -4,17 +4,17 @@ import { TranslateText } from "../services/translateService";
 
 const prisma = new PrismaClient();
 
-// map query lang vers DB language
-const mapLang = (lang: string): "es" | "en" | "fr" => {
+// Helper : map query lang vers DB language
+const mapLang = (lang: string): "es" | "fr" => {
   switch (lang.toLowerCase()) {
-    case "fr": return "fr";
-    case "en":
-    case "en-us": return "en";
-    default: return "es";
+    case "fr":
+      return "fr";
+    default:
+      return "es"; // langue par défaut
   }
 };
 
-// CREATE PRODUCT
+// CREATE PRODUCT (base = espagnol)
 export const createProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const { title, description, price } = req.body;
@@ -25,16 +25,14 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
       return;
     }
 
-    const [enTitle, enDesc, frTitle, frDesc] = await Promise.all([
-      TranslateText(title, "en-US"),
-      TranslateText(description, "en-US"),
+    // Traductions uniquement en français
+    const [frTitle, frDesc] = await Promise.all([
       TranslateText(title, "fr"),
       TranslateText(description, "fr"),
     ]);
 
     const translationsData = [
-      { language: "es", title, description },
-      { language: "en", title: enTitle, description: enDesc },
+      { language: "es", title, description }, // Base espagnol
       { language: "fr", title: frTitle, description: frDesc },
     ];
 
@@ -82,8 +80,8 @@ export const getProduct = async (req: Request, res: Response): Promise<void> => 
       product: { ...rest, title: translation?.title, description: translation?.description },
     });
   } catch (error: any) {
-    console.error("Error getting product:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error trying to get the product", error);
+    res.status(500).json({ message: "Error on server" });
   }
 };
 
@@ -105,6 +103,7 @@ export const getAllProducts = async (req: Request, res: Response): Promise<void>
       const translation =
         product.translations.find(t => t.language === targetLang) ||
         product.translations.find(t => t.language === "es");
+
       const { translations, ...rest } = product;
       return { ...rest, title: translation?.title, description: translation?.description };
     });
@@ -119,8 +118,8 @@ export const getAllProducts = async (req: Request, res: Response): Promise<void>
       totalPages,
     });
   } catch (error: any) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error fetching products", error);
+    res.status(500).json({ message: "Error on server" });
   }
 };
 
@@ -147,20 +146,17 @@ export const updateProduct = async (req: Request, res: Response): Promise<void> 
     });
 
     if (title || description) {
-      const [enTitle, enDesc, frTitle, frDesc] = await Promise.all([
-        title ? TranslateText(title, "en-US") : undefined,
-        description ? TranslateText(description, "en-US") : undefined,
+      const [frTitle, frDesc] = await Promise.all([
         title ? TranslateText(title, "fr") : undefined,
         description ? TranslateText(description, "fr") : undefined,
       ]);
 
       const translations: Record<string, { title?: string; description?: string }> = {
         es: { title, description },
-        en: { title: enTitle, description: enDesc },
         fr: { title: frTitle, description: frDesc },
       };
 
-      for (const lang of ["es", "en", "fr"]) {
+      for (const lang of ["es", "fr"]) {
         await prisma.productTranslation.upsert({
           where: { productId_language: { productId: updatedProduct.id, language: lang } },
           update: {
@@ -212,7 +208,7 @@ export const deleteProduct = async (req: Request, res: Response): Promise<void> 
 
     res.status(200).json({ message: "Product and related data deleted successfully" });
   } catch (error: any) {
-    console.error("Error deleting product:", error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error deleting product", error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
