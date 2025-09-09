@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import testCake from "../../assets/testCake.jpg"
 interface ProductCardProps {
   id?: string;
-  title: string;
+  title?: string;
   price: string;
-  description: string;
+  description?: string;
   image?: string;
 }
 

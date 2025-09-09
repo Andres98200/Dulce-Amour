@@ -4,42 +4,42 @@ import { getProductbyId } from "../services/api";
 import testCake from "../assets/testCake.jpg";
 import ProductDescription from "../components/layouts/ProductDetailCard";
 import ProductDescriptionSkeleton from "../components/layouts/skeletons/ProductSkeleton";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
+import { useLang } from "../context/LangContext";
+import type { Product } from "../types/Product";
 
 export default function ProductDetails() {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
+  const { lang } = useLang();
 
   useEffect(() => {
     if (id) {
       setLoading(true);
-      getProductbyId(id)
+      getProductbyId(id, lang)
         .then((data) => {
-          setTimeout(() => {
-            setProduct(data);
-            setLoading(false);
-          }, 1000);
+          setProduct(data);
+          setLoading(false);
         })
         .catch((err) => {
           console.error(err);
           setLoading(false);
         });
     }
-  }, [id]);
+  }, [id, lang]); // re-fetch si la langue change
 
   const images = product?.images?.length
-    ? product.images.map((img: any) => img.url)
+    ? product.images.map((img) => img.url)
     : [testCake];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-8 pt-20">
       <div className="max-w-6xl w-full bg-cardColor rounded-xl shadow-md flex flex-col md:flex-row gap-8 p-4">
         
-        {/* Carrousel d'images */}
+        {/* Carrousel */}
         <div className="md:w-1/2">
           {loading ? (
             <div className="w-full h-80 bg-slate-200 animate-pulse rounded-xl" />
@@ -51,11 +51,11 @@ export default function ProductDetails() {
               slidesPerView={1}
               className="rounded-xl"
             >
-              {images.map((url: string, index: number) => (
+              {images.map((url, index) => (
                 <SwiperSlide key={index}>
                   <img
                     src={url}
-                    alt={`${product.title} ${index + 1}`}
+                    alt={`${product?.title || "Product"} ${index + 1}`}
                     className="w-full h-full object-cover rounded-xl"
                   />
                 </SwiperSlide>
@@ -64,15 +64,15 @@ export default function ProductDetails() {
           )}
         </div>
 
-        {/* Description produit */}
+        {/* Description */}
         <div className="md:w-1/2 flex flex-col justify-center">
           {loading ? (
             <ProductDescriptionSkeleton />
           ) : (
             <ProductDescription
-              title={product.title}
-              price={product.price}
-              description={product.description}
+              title={product?.title}
+              price={product?.price ?? 0}
+              description={product?.description}
               onContactClick={() => alert("Contactez-nous")}
             />
           )}

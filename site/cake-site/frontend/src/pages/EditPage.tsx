@@ -29,7 +29,7 @@ export default function EditPage() {
     setLoading(true);
     setError(null);
     try {
-      const data: ProductListResponse = await fetchData(currentPage, productsPerPage);
+      const data: ProductListResponse = await fetchData("es", currentPage, productsPerPage);
       setProducts(data.products);
       setTotalPages(data.totalPages);
 

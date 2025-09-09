@@ -2,9 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 interface ProductDescriptionProps {
-  title: string;
-  price: number;
-  description: string;
+  title?: string;
+  price: string;
+  description?: string;
   onContactClick?: () => void;
 }
 
@@ -30,12 +30,12 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
         </p>
 
         {/* Description */}
-        <p className="text-gray-700 text-base leading-relaxed ">
+        <p className="text-gray-700 text-base leading-relaxed">
           {description}
         </p>
       </div>
 
-      {/* Bouton centré */}
+      {/* Bouton */}
       <button
         onClick={onContactClick}
         className="mt-8 self-center bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition"
