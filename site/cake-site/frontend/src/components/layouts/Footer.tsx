@@ -2,6 +2,7 @@ import facebook from "../../assets/icons/facebook.png";
 import instagram from "../../assets/icons/instagram.png";
 import whatsapp from "../../assets/icons/whatsapp.png";
 import { useTranslation } from "react-i18next";
+import logo2 from "../../assets/logo2.png";
 
 const Footer: React.FC = () => {
     const { t } = useTranslation();
@@ -10,7 +11,7 @@ const Footer: React.FC = () => {
 <footer className="bg-blueCustom w-full p-4 mt-auto">
   <div className="grid grid-cols-2 items-center h-full">
     <div>
-      <p className="font-bold">Site name or LOGO</p>
+      <div className="h-full max-w-48"><img src={logo2} alt="Logo_Image" /></div>
     </div>
     <div className="flex flex-col items-end">
       <p className="font-bold mb-2">{t("Our Social Medias")}</p>

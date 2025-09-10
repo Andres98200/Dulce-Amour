@@ -1,9 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import aboutPageImage from "../assets/aboutPageImage.png"
+import { useLang } from "../context/LangContext";
 
 export default function AboutUs() {
   const { t } = useTranslation();
+  const { lang } = useLang();
 
   return (
     <div className="flex flex-col min-h-screen px-6 lg:px-20 bg-gray-50">
@@ -59,7 +61,13 @@ export default function AboutUs() {
                 <FaInstagram size={80} /> Instagram
               </a>
               <a
-                href="#"
+                href={`https://wa.me/33761557413?text=${encodeURIComponent(
+                  lang === "es"
+                    ? "Buenos Dias, estoy interesado en realizar un pedido. ¿Podría darme más información? Muchas Gracias."
+                    : "Bonjour, j'aimerais réaliser une commande. Pouvez-vous m'en dire plus ? Merci Beaucoup."
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-3 text-gray-700 hover:text-green-500 transition mt-4"
               >
                 <FaWhatsapp size={80} /> Whatsapp

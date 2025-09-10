@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
     <nav className="bg-roseCustom text-base-gray-950 p-4 w-full fixed top-0 left-0 z-50">
       <div className="flex justify-between items-center">
         {/* Logo/Brand */}
-        <div className="h-full w-20 rounded-full overflow-hidden"><img src={logo} alt="Logo_Image" /></div>
+        <div className="h-full max-w-24"><img src={logo} alt="Logo_Image" /></div>
         
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-6 items-center">
