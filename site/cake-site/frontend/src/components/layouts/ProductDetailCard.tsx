@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 
 interface ProductDescriptionProps {
   title?: string;
-  price: string;
+  price: string | number;
   description?: string;
   onContactClick?: () => void;
 }

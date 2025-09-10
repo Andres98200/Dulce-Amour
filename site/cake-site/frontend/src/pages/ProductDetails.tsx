@@ -73,7 +73,14 @@ export default function ProductDetails() {
               title={product?.title}
               price={product?.price ?? 0}
               description={product?.description}
-              onContactClick={() => alert("Contactez-nous")}
+              onContactClick={() => {
+                const phone = "33761557413";
+                const message = lang === "es"
+                  ? `Buenos Dias, estoy interesado en el ${product?.title}, precio de ${product?.price}€. ¿Podría darme más información? Muchas Gracias.`
+                  : `Bonjour, je suis intéressé par le ${product?.title}, prix de ${product?.price}€. Pouvez-vous m'en dire plus ? Merci Beaucoup.`;
+                const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+                window.open(url, "_blank");
+              }}
             />
           )}
         </div>
