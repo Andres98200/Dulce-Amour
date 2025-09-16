@@ -15,7 +15,9 @@ const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors());
+app.use(cors({
+  origin: 'https://dulce-amour.vercel.app'
+}));
 
 //Routes
 app.get('/', (req:Request, res:Response) => {
