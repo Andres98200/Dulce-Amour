@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc",
+    "prisma:verify": "npx prisma db pull",
     "start": "node dist/index.js"
   },
   "keywords": [],
