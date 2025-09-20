@@ -49,13 +49,13 @@ export default function AboutUs() {
             </h3>
             <div className="flex flex-col space-y-3">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=100066989070614"
                 className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition mb-4 "
               >
-                <FaFacebook size={80} /> Facebook
+                <FaFacebook size={80}/> Facebook
               </a>
               <a
-                href="https://www.instagram.com/decor_artballons/"
+                href="https://www.instagram.com/dulce_amour__/"
                 className="flex items-center gap-3 text-gray-700 hover:text-pink-500 transition mb-4"
               >
                 <FaInstagram size={80} /> Instagram
