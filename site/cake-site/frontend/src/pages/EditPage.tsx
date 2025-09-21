@@ -38,7 +38,7 @@ export default function EditPage() {
       // Petite pause pour l'animation du skeleton
       setTimeout(() => {
         setLoading(false);
-      }, 800);
+      }, 300);
     } catch (err: any) {
       setError(err.message);
       setLoading(false);

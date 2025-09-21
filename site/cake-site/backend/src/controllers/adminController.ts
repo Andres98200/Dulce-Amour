@@ -40,7 +40,7 @@ export const login = async(req:Request, res:Response) => {
         });
         console.log("token generated")
 
-        res.status(200).json({ message: `Successfully Connected, welcome ${adminEmail}`, token});
+        res.status(200).json({ message: `Successfully Connected`});
 
     }catch(error:any){
         console.log('error login', error);
