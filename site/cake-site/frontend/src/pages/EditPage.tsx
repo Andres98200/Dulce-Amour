@@ -4,6 +4,8 @@ import { fetchData, deleteProduct, addProduct, EditProduct } from "../services/a
 import type { Product, ProductInput, ProductListResponse } from "../types/Product";
 import EditPageSkeleton from "../components/layouts/skeletons/EditPageSkeleton";
 import PaginationSkeleton from "../components/layouts/skeletons/PaginationSkeleton";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function EditPage() {
   const { t } = useTranslation();
@@ -68,8 +70,10 @@ export default function EditPage() {
     try {
       if (EditingProduct) {
         await EditProduct(EditingProduct.id.toString(), formData, files ?? undefined);
+        toast.info(t("Product updated"))
       } else {
         await addProduct(formData, files ?? undefined);
+        toast.success(t("New product created"))
       }
       setFormData({ title: "", description: "", price: "", images: [] });
       setFiles(null);
@@ -77,6 +81,7 @@ export default function EditPage() {
       setShowForm(false);
       await loadProducts();
     } catch (error) {
+      toast.error(t("Error, verify the form fields"))
       console.error("Error submitting product", error);
     }
   };
@@ -102,7 +107,9 @@ export default function EditPage() {
     try {
       await deleteProduct(id.toString());
       await loadProducts();
+      toast.warn(t("Product deleted"));
     } catch (error) {
+      toast.error(t("Product not deleted"));
       console.error("Error while deleting the product", error);
     }
   };
@@ -110,7 +117,7 @@ export default function EditPage() {
   return (
     <div className="p-4 pt-20 max-w-6xl w-full mx-auto flex flex-col min-h-screen overflow-x-hidden">
       {showForm ? (
-        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-full max-w-lg sm:max-w-2xl mx-auto mt-8">
+        <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 w-full max-w-lg sm:max-w-2xl mx-auto mt-20">
           <h2 className="text-xl font-semibold mb-6 flex justify-center">
             {EditingProduct ? t("Edit Product") : t("Add Product")}
           </h2>
@@ -209,10 +216,6 @@ export default function EditPage() {
                     >
                       {t("Delete")}
                     </button>
-                    <label className="cursor-pointer px-3 py-1 bg-slate-600 text-white rounded-lg hover:bg-slate-800 transition-colors duration-200">
-                      {t("Add Images")}
-                      <input type="file" multiple onChange={handleFileChange} className="hidden" />
-                    </label>
                   </div>
                 </li>
               ))}
@@ -252,6 +255,7 @@ export default function EditPage() {
           )}
         </>
       )}
+      <ToastContainer position="top-center" autoClose={3000}/>
     </div>
   );
 }
