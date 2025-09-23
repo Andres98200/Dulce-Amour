@@ -1,8 +1,10 @@
 🍰 Dulce Amour
+
 A showcase web application for an artisanal bakery, allowing users to browse products, view detailed pages, and contact directly via WhatsApp.
 Fullstack project deployed with Vercel (frontend) and Railway (backend), with database management using Supabase.
 
 🚀 Tech Stack
+
 Frontend: React + Vite + TypeScript + TailwindCSS
 
 Backend: Express.js + Node.js
@@ -16,6 +18,7 @@ Internationalization: i18next (French / Spanish)
 UI/UX: Swiper.js (carousel), react-toastify (notifications)
 
 ✨ Features
+
 🖼️ Product catalog with image carousel
 
 📱 Fully responsive design (mobile-first)
