@@ -36,7 +36,7 @@ export default function ProductDetails() {
     : [testCake];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-8 pt-28 md:pt-20">
+    <div className="min-h-screen flex items-center justify-center bg-white p-8 pt-28 md:pt-24">
 
       <div className="max-w-6xl w-full bg-cardColor rounded-xl shadow-md flex flex-col md:flex-row gap-4 p-4">
         
