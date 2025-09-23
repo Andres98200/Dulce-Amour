@@ -40,7 +40,7 @@ export const login = async(req:Request, res:Response) => {
         });
         console.log("token generated")
 
-        res.status(200).json({ message: `Successfully Connected`});
+        res.status(200).json({ message: `Successfully Connected`, token});
 
     }catch(error:any){
         console.log('error login', error);
