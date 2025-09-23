@@ -35,15 +35,14 @@ UI/UX: Swiper.js (carousel), react-toastify (notifications)
 
 ⚙️ Local Setup
 1. Clone the repository
-git clone https://github.com/your-username/dulce-amour.git
 cd dulce-amour
 
-2. Frontend
+3. Frontend
 cd frontend
 npm install
 npm run dev
 
-3. Backend
+4. Backend
 cd backend
 npm install
 npm run dev
