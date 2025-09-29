@@ -17,7 +17,7 @@ Internationalization: i18next (French / Spanish)
 
 UI/UX: Swiper.js (carousel), react-toastify (notifications)
 
-Figma design: https://www.figma.com/design/wgAjuiDYfd0p0al5bxrRmn/Cake-website?node-id=0-1&t=VQmJKNr4fwpiAiah-0
+Figma design: [https://www.figma.com/design/wgAjuiDYfd0p0al5bxrRmn/Cake-website?node-id=0-1&t=VQmJKNr4fwpiAiah-0](https://www.figma.com/design/wgAjuiDYfd0p0al5bxrRmn/Cake-website?node-id=0-1&t=jfm6B8mRCL3Lsq4Y-1)
 
 ✨ Features
 
