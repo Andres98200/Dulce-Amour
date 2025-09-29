@@ -16,6 +16,7 @@ Deployment: Vercel (frontend), Railway (backend)
 Internationalization: i18next (French / Spanish)
 
 UI/UX: Swiper.js (carousel), react-toastify (notifications)
+Figma design: https://www.figma.com/design/wgAjuiDYfd0p0al5bxrRmn/Cake-website?node-id=0-1&t=VQmJKNr4fwpiAiah-0
 
 ✨ Features
 
