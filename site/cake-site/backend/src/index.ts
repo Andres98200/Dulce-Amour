@@ -16,7 +16,11 @@ const router = Router();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
-  origin: 'https://dulceamour-andres98200s-projects.vercel.app'
+  origin: [
+    'https://dulceamour.vercel.app',
+    'https://dulceamour-andres98200s-projects.vercel.app',
+    'http://localhost:5173' // for local development
+  ]
 }));
 
 //Routes
