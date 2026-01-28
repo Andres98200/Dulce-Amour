@@ -15,8 +15,14 @@ const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+const allowedOrigins = [
+  'http://localhost:5173', // local development
+  ...(process.env.ALLOWED_ORIGINS?.split(',') || [])
+];
+
 app.use(cors({
-  origin: 'https://dulceamour-andres98200s-projects.vercel.app'
+  origin: allowedOrigins
 }));
 
 //Routes
