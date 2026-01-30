@@ -16,18 +16,23 @@ const router = Router();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-const allowedOrigins = [
-  'http://localhost:5173',
-  'http://localhost:3000',
-  ...(process.env.ALLOWED_ORIGINS?.split(',').map(origin => origin.trim()) || [])
-];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
 
-console.log('Allowed origins:', allowedOrigins);
+      if (
+        origin.includes("vercel.app") ||
+        origin.includes("localhost")
+      ) {
+        return callback(null, true);
+      }
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 //Routes
 app.get('/', (req:Request, res:Response) => {
