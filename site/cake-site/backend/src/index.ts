@@ -15,12 +15,18 @@ const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  ...(process.env.ALLOWED_ORIGINS?.split(',').map(origin => origin.trim()) || [])
+];
+
+console.log('Allowed origins:', allowedOrigins);
+
 app.use(cors({
-  origin: [
-    'https://dulceamour.vercel.app',
-    'https://dulceamour-andres98200s-projects.vercel.app',
-    'http://localhost:5173' // for local development
-  ]
+  origin: allowedOrigins,
+  credentials: true
 }));
 
 //Routes
