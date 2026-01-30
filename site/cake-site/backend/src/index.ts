@@ -21,9 +21,10 @@ app.use(
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
 
+      const customDomain = process.env.CUSTOM_DOMAIN || "";
+
       if (
-        origin.includes("vercel.app") ||
-        origin.includes("localhost")
+        origin.includes("localhost") ||(customDomain && origin.includes(customDomain))
       ) {
         return callback(null, true);
       }
