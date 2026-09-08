@@ -20,7 +20,7 @@ export default function Home() {
   const { lang } = useLang();
 
   useEffect(() => {
-    const bestSellersIds = ["1", "2", "3", "4"];
+    const bestSellersIds = ["1", "5", "3", "4"];
     setLoading(true);
     Promise.all(bestSellersIds.map(id => getProductbyId(id, lang)))
       .then(products => {
