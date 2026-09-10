@@ -21,7 +21,7 @@ const ProductDescriptionSkeleton: React.FC = () => {
 
       {/* Button */}
       <div className="mt-8 self-center">
-        <Skeleton className="h-12 w-40 rounded-xl" />
+        <Skeleton className="h-12 w-40 rounded-full" />
       </div>
     </div>
   );
