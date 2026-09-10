@@ -5,7 +5,7 @@
     "Log In": "Iniciar Sesión",
     "All of our Cakes": "Todos nuestros pasteles",
     "Our Best Sellers": "Los favoritos",
-    "Why Choose our boutique ?": "Por qué Elegirnos  ?",
+    "Why Choose our boutique ?": "¿ Por qué Elegirnos  ?",
     "See all products": "Ver todos los productos",
     "Loading": "Cargando...",
     "Our Social Medias": "Nuestras redes",
@@ -44,6 +44,12 @@
     "feature_1": "Pasteles personalizados, cada pastel se prepara con ingredientes frescos y de alta calidad para un sabor excepcional. 🍰​",
     "feature_2": "Diseños únicos para reflejar tus ideas y deseos. Piensa como te gustaria y nosotros haremos realidad esa idea. 🎇​",
     "feature_3": "Convierte cada celebración en un recuerdo inolvidable con nuestras creaciones. 🎁​",
-    "feature_4": "Escuchamos tus necesidades para ofrecer una experiencia personalizada y cálida. 👌​"
+    "feature_4": "Escuchamos tus necesidades para ofrecer una experiencia personalizada y cálida. 👌​",
+    "Product deleted": "Producto Borrado",
+    "Product not deleted": "Producto no Borrado",
+    "Product updated": "Producto Actualizado",
+    "New product created": "Nuevo Producto Agregado",
+    "Error, verify the form fields": "Error, verifica todos los campos del formulario",
+    "Images added": "Nuevas imagenes agregadas"
 
 }

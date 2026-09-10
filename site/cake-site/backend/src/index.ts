@@ -15,9 +15,25 @@ const router = Router();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cors({
-  origin: 'https://dulceamour-git-dev-andres98200s-projects.vercel.app'
-}));
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      const customDomain = process.env.CUSTOM_DOMAIN || "";
+
+      if (
+        origin.includes("localhost") ||(customDomain && origin.includes(customDomain))
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 
 //Routes
 app.get('/', (req:Request, res:Response) => {

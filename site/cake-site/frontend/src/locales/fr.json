@@ -44,5 +44,11 @@
     "feature_1": "Gâteaux personnalisés, chaque gâteau est préparé avec des ingrédients frais et de haute qualité pour un goût exceptionnel. 🍰",
     "feature_2": "Des designs uniques pour refléter vos idées et vos envies. Pensez à ce que vous souhaitez et nous réaliserons cette idée. 🎇",
     "feature_3": "Transformez chaque célébration en un souvenir inoubliable avec nos créations. 🎁",
-    "feature_4": "Nous écoutons vos besoins pour offrir une expérience personnalisée et chaleureuse. 👌"
+    "feature_4": "Nous écoutons vos besoins pour offrir une expérience personnalisée et chaleureuse. 👌",
+    "Product deleted": "Produit supprimé",
+    "Product not deleted": "Produit non supprimé",
+    "Product updated": "Produit mis à jour",
+    "New product created": "Nouveau produit ajouté",
+    "Error, verify the form fields": "Erreur, vérifie tous les champs du formulaire",
+    "Images added": "Nouvelles images ajoutées"
 }

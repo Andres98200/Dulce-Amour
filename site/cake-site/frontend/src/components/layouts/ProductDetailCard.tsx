@@ -20,7 +20,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
     <div className="flex flex-col h-full">
       <div className="space-y-4">
         {/* Titre */}
-        <h1 className="text-2xl sm:text-3xl md:text-3xl font-bold leading-tight">
+        <h1 className="text-xl sm:text-3xl md:text-2xl font-bold leading-tight">
           {title}
         </h1>
 
