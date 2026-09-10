@@ -29,12 +29,6 @@ const Navbar: React.FC = () => {
       : "Bonjour Dulce Amour, je souhaite passer une commande. Pouvez-vous m'aider ? Merci !"
   )}`;
 
-  const contactLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    lang === "es"
-      ? "Buenos Dias, estoy interesado en realizar un pedido. ¿Podría darme más información? Muchas Gracias."
-      : "Bonjour, j'aimerais réaliser une commande. Pouvez-vous m'en dire plus ? Merci Beaucoup."
-  )}`;
-
   const navLinks = [
     { to: "/Home", label: t("Home") },
     { to: "/Products", label: t("Products") },
@@ -59,9 +53,9 @@ const Navbar: React.FC = () => {
             </li>
           ))}
           <li>
-            <a href={contactLink} target="_blank" rel="noopener noreferrer" className="hover:text-maroon transition-colors">
+            <Link to="/contact" className="hover:text-maroon transition-colors">
               {t("Contact")}
-            </a>
+            </Link>
           </li>
           <li className="relative">
             <button
@@ -135,9 +129,9 @@ const Navbar: React.FC = () => {
               </li>
             ))}
             <li>
-              <a href={contactLink} target="_blank" rel="noopener noreferrer">
+              <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
                 {t("Contact")}
-              </a>
+              </Link>
             </li>
             <li>
               <a

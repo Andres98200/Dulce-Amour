@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
                         <li><Link to="/Home" className="hover:text-maroon transition-colors">{t("Home")}</Link></li>
                         <li><Link to="/Products" className="hover:text-maroon transition-colors">{t("Products")}</Link></li>
                         <li><Link to="/about-us" className="hover:text-maroon transition-colors">{t("About Us")}</Link></li>
-                        <li><a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="hover:text-maroon transition-colors">{t("Contact Us")}</a></li>
+                        <li><Link to="/contact" className="hover:text-maroon transition-colors">{t("Contact Us")}</Link></li>
                     </ul>
                 </div>
 
