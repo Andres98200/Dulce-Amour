@@ -20,17 +20,17 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
     <div className="flex flex-col h-full">
       <div className="space-y-4">
         {/* Titre */}
-        <h1 className="text-xl sm:text-3xl md:text-2xl font-bold leading-tight">
+        <h1 className="font-display text-xl sm:text-3xl md:text-2xl font-bold leading-tight text-cocoa">
           {title}
         </h1>
 
         {/* Prix */}
-        <p className="text-lg sm:text-xl font-semibold text-gray-800">
+        <p className="font-display text-lg sm:text-xl font-bold text-maroon">
           {price}€
         </p>
 
         {/* Description */}
-        <p className="text-gray-700 text-base leading-relaxed">
+        <p className="text-cocoa-light text-base leading-relaxed">
           {description}
         </p>
       </div>
@@ -38,7 +38,7 @@ const ProductDescription: React.FC<ProductDescriptionProps> = ({
       {/* Bouton */}
       <button
         onClick={onContactClick}
-        className="mt-8 self-center bg-pink-500 hover:bg-pink-600 text-white font-semibold px-6 py-3 rounded-xl transition"
+        className="mt-8 self-center bg-maroon hover:bg-maroon-dark text-cream font-semibold px-6 py-3 rounded-full transition-colors"
       >
         {t("Contact Us")}
       </button>
