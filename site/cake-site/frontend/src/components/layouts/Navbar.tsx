@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { Languages, Menu, X } from 'lucide-react';
+import { Languages, Menu, X, User, LogOut, ShoppingBag } from 'lucide-react';
 import { useTranslation } from "react-i18next";
 import LanguageSwitch from "./LanguageSwitch";
 import { logout as apiLogout } from "../../services/api";
-import logo from "../../assets/logo.png";
+import { useLang } from "../../context/LangContext";
+
+const WHATSAPP_NUMBER = "33761557413";
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { lang } = useLang();
   const [openLangMenu, setOpenLangMenu] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -16,55 +19,96 @@ const Navbar: React.FC = () => {
   const isLoggedIn = !!token;
 
   const handleLogout = () => {
-  apiLogout(); 
-  navigate("/login");
-};
+    apiLogout();
+    navigate("/login");
+  };
 
+  const orderLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    lang === "es"
+      ? "Hola Dulce Amour, quiero hacer un pedido. ¿Me ayudan? ¡Gracias!"
+      : "Bonjour Dulce Amour, je souhaite passer une commande. Pouvez-vous m'aider ? Merci !"
+  )}`;
+
+  const contactLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    lang === "es"
+      ? "Buenos Dias, estoy interesado en realizar un pedido. ¿Podría darme más información? Muchas Gracias."
+      : "Bonjour, j'aimerais réaliser une commande. Pouvez-vous m'en dire plus ? Merci Beaucoup."
+  )}`;
+
+  const navLinks = [
+    { to: "/Home", label: t("Home") },
+    { to: "/Products", label: t("Products") },
+    { to: "/about-us", label: t("About Us") },
+  ];
 
   return (
-    <nav className="bg-roseCustom text-base-gray-950 p-4 w-full fixed top-0 left-0 z-50">
-      <div className="flex justify-between items-center">
-        {/* Logo/Brand */}
-        <div className="h-full max-w-24"><img src={logo} alt="Logo_Image" /></div>
-        
+    <nav className="bg-cream/90 backdrop-blur border-b border-blush-dark text-cocoa w-full fixed top-0 left-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+        {/* Brand */}
+        <Link to="/Home" className="font-display text-xl font-bold tracking-tight">
+          Dulce Amour
+        </Link>
+
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 items-center">
+        <ul className="hidden md:flex space-x-6 items-center text-sm font-medium">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <Link to={link.to} className="hover:text-maroon transition-colors">
+                {link.label}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <a href={contactLink} target="_blank" rel="noopener noreferrer" className="hover:text-maroon transition-colors">
+              {t("Contact")}
+            </a>
+          </li>
           <li className="relative">
             <button
               onClick={() => setOpenLangMenu(!openLangMenu)}
-              className="rounded-full p-2 shadow-md hover:shadow-lg transition"
+              className="rounded-full p-2 border border-blush-dark hover:bg-blush transition"
               aria-label={t("Change language")}
             >
-              <Languages className="w-6 h-6 text-black"/>
+              <Languages className="w-5 h-5 text-cocoa" />
             </button>
             {openLangMenu && (
-              <div className="absolute right-0 mt-2 rounded-full shadow-lg bg-white z-50">
+              <div className="absolute right-0 mt-2 rounded-full shadow-card bg-cream z-50 p-1">
                 <LanguageSwitch />
               </div>
             )}
           </li>
           <li>
-            <Link to="/Home">{t("Home")}</Link>
+            <a
+              href={orderLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-maroon text-cream rounded-full px-4 py-2 text-sm font-semibold hover:bg-maroon-dark transition-colors"
+            >
+              <ShoppingBag className="w-4 h-4" />
+              {t("Order Now")}
+            </a>
           </li>
           <li>
-            <Link to="/Products">{t("Products")}</Link>
-          </li>
-          <li>
-            <Link to="/about-us">{t("About Us")}</Link>
-          </li>
-          {isLoggedIn ? (
-            <li>
-              <button onClick={handleLogout}>
-                {t("Log Out")}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="rounded-full p-2 border border-blush-dark hover:bg-blush transition"
+                aria-label={t("Log Out")}
+                title={t("Log Out")}
+              >
+                <LogOut className="w-5 h-5 text-cocoa" />
               </button>
+            ) : (
+              <button
+                onClick={() => navigate('/login')}
+                className="rounded-full p-2 border border-blush-dark hover:bg-blush transition"
+                aria-label={t("Log In")}
+                title={t("Log In")}
+              >
+                <User className="w-5 h-5 text-cocoa" />
+              </button>
+            )}
           </li>
-          ) : (
-          <li>
-            <button onClick={() => navigate('/login')}>
-              {t("Log In")}
-            </button>
-          </li>
-          )}
         </ul>
 
         {/* Mobile Burger Menu Button */}
@@ -74,40 +118,66 @@ const Navbar: React.FC = () => {
           aria-label={t("Toggle menu")}
         >
           {isMenuOpen ? (
-            <X className="w-6 h-6 text-black" />
+            <X className="w-6 h-6 text-cocoa" />
           ) : (
-            <Menu className="w-6 h-6 text-black" />
+            <Menu className="w-6 h-6 text-cocoa" />
           )}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden mt-4 bg-white rounded-lg shadow-lg p-4">
-          <ul className="flex flex-col space-y-4">
+        <div className="md:hidden mx-4 mb-4 bg-cream rounded-card shadow-card p-4 border border-blush-dark">
+          <ul className="flex flex-col space-y-4 text-sm font-medium">
+            {navLinks.map((link) => (
+              <li key={link.to}>
+                <Link to={link.to} onClick={() => setIsMenuOpen(false)}>{link.label}</Link>
+              </li>
+            ))}
             <li>
-              <Link to="/Home" onClick={() => setIsMenuOpen(false)}>{t("Home")}</Link>
+              <a href={contactLink} target="_blank" rel="noopener noreferrer">
+                {t("Contact")}
+              </a>
             </li>
             <li>
-              <Link to="/Products" onClick={() => setIsMenuOpen(false)}>{t("Products")}</Link>
-            </li>
-            <li>
-              <Link to="/about-us" onClick={() => setIsMenuOpen(false)}>{t("About Us")}</Link>
-            </li>
-            <li>
-              <button 
-                className="hover:bg-black-400" 
-                onClick={() => {
-                  navigate('/login');
-                  setIsMenuOpen(false);
-                }}
+              <a
+                href={orderLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-maroon text-cream rounded-full px-4 py-2 text-sm font-semibold"
               >
-                {t("Log In")}
-              </button>
+                <ShoppingBag className="w-4 h-4" />
+                {t("Order Now")}
+              </a>
             </li>
-            <li className="pt-2 border-t border-gray-200">
-              <div className="flex items-center space-x-2">
-                <span className="text-sm text-gray-600">{t("Language")}:</span>
+            <li>
+              {isLoggedIn ? (
+                <button
+                  className="inline-flex items-center gap-2"
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <LogOut className="w-4 h-4" />
+                  {t("Log Out")}
+                </button>
+              ) : (
+                <button
+                  className="inline-flex items-center gap-2"
+                  onClick={() => {
+                    navigate('/login');
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  <User className="w-4 h-4" />
+                  {t("Log In")}
+                </button>
+              )}
+            </li>
+            <li className="pt-3 border-t border-blush-dark">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-cocoa-muted">{t("Language")}:</span>
                 <LanguageSwitch />
               </div>
             </li>
