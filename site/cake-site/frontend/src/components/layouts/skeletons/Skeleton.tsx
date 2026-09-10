@@ -9,7 +9,7 @@ const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
   return (
     <div
       className={clsx(
-        "animate-pulse rounded-md bg-slate-300",
+        "animate-pulse rounded-md bg-blush-dark",
         className
       )}
     />

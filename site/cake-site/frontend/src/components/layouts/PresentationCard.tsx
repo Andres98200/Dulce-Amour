@@ -9,7 +9,7 @@ const PresentationCard: React.FC<PresentationCardProps> = ({
   image,
 }) => (
   <div
-    className="bg-cardColor rounded-xl shadow-md flex flex-col flex-shrink-0 overflow-hidden w-full aspect-[4/3]"
+    className="bg-cream rounded-card shadow-card flex flex-col flex-shrink-0 overflow-hidden w-full aspect-[4/3]"
   >
     {image && (
     <div className="rounded-lg overflow-hidden flex-shrink-0 h-full object-cover">

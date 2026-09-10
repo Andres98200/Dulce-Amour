@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import EditPage from './pages/EditPage';
 import { PrivateRoute } from './components/layouts/PrivateRoute';
 import AboutUs from './pages/AboutUs';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     <Route path="/" element={<Navigate to="/home" />} />
     <Route path="/login" element={<Login />} />
     <Route path="/about-us" element={< AboutUs />} />
+    <Route path="/contact" element={<Contact />} />
     <Route path="/products" element={<Products />} />
     <Route path="/home" element={<Home />} />
     <Route path="/product/:id" element={<ProductDetails />} />
